@@ -1,0 +1,103 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "x",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "y",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath_MulDiv18_Overflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "UD60x18",
+        "name": "x",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath_UD60x18_Exp2_InputTooBig",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "UD60x18",
+        "name": "x",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath_UD60x18_Log_InputTooSmall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_randWord",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "UD60x18",
+        "name": "_min",
+        "type": "uint256"
+      },
+      {
+        "internalType": "UD60x18",
+        "name": "_max",
+        "type": "uint256"
+      },
+      {
+        "internalType": "UD60x18",
+        "name": "_bias",
+        "type": "uint256"
+      }
+    ],
+    "name": "getBiasRoll",
+    "outputs": [
+      {
+        "internalType": "UD60x18",
+        "name": "res_",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_randWord",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "UD60x18",
+        "name": "_min",
+        "type": "uint256"
+      },
+      {
+        "internalType": "UD60x18",
+        "name": "_max",
+        "type": "uint256"
+      }
+    ],
+    "name": "getUniformRoll",
+    "outputs": [
+      {
+        "internalType": "UD60x18",
+        "name": "res_",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]
