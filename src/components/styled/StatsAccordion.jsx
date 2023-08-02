@@ -27,7 +27,7 @@ export default function StatsAccordion({ title, children }) {
       }}
     >
       <AccordionSummary
-        expandIcon={<Box sx={{ color: '#701C1g' }}>▲</Box>}
+        expandIcon={<Box sx={{ color: '#701C1C' }}>▲</Box>}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
