@@ -1,1 +1,1 @@
-export const GATEWAYS_CZODIAC = "https://czodiac.mypinata.cloud";
+export const GATEWAYS_CZODIAC = "https://fleek.ipfs.io";

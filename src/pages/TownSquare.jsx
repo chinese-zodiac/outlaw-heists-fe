@@ -1,15 +1,13 @@
 import { useTheme } from '@emotion/react';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { parseEther } from 'ethers/lib/utils.js';
 import { useAccount, useBalance, useContractRead } from 'wagmi';
 import IERC20Abi from '../abi/IERC20.json';
 import IERC721EnumerableAbi from '../abi/IERC721Enumerable.json';
-import Billboard from '../components/elements/Billboard';
 import GangEditor from '../components/elements/GangEditor';
 import LocationTitle from '../components/elements/LocationTitle';
 import MovementAccordion from '../components/elements/MovementAccordion';
-import OutlawList from '../components/elements/OutlawList';
+import OutlawPicker from '../components/elements/OutlawPicker';
 import TgCommentBox from '../components/elements/TgCommentBox';
 import FooterArea from '../components/layouts/FooterArea';
 import HeaderBar from '../components/layouts/HeaderBar';
@@ -54,12 +52,7 @@ export default function TownSquare() {
     watch: true,
   });
 
-  const outlawSupply =
-    !outlawSupplyIsLoading && !outlawSupplyIsError
-      ? outlawSupplyData
-      : parseEther('0');
-
-  const outlawNftIds = useAccountNfts(ADDRESS_OUTLAWS_NFT);
+  const { accountNftIdArray } = useAccountNfts(ADDRESS_OUTLAWS_NFT);
 
   return (
     <>
@@ -75,43 +68,28 @@ export default function TownSquare() {
       >
         <LocationTitle>TOWN SQUARE</LocationTitle>
         <LocationContentArea>
-          <Grid
-            container
-            spacing={2}
-            sx={{ alignItems: 'start', marginTop: '0.5em' }}
+          <MovementAccordion
+            sx={{
+              textAlign: 'right',
+              paddingRight: '1em',
+              paddingBottom: { xs: '0em' },
+            }}
+          />
+          <Box
+            css={{
+              position: 'relative',
+              backgroundColor: theme.palette.primary.dark,
+              backgroundImage: "url('./images/plank 1 1.png')",
+              backgroundSize: '100%',
+              marginTop: '1em',
+              padding: '0.5em',
+            }}
           >
-            <Grid xs={6}>
-              <Billboard
-                title="YER OUTLAWS"
-                subtitle={address}
-                sx={{
-                  fontSize: { xs: '1.25em', sm: '2.5em' },
-                }}
-              >
-                <OutlawList />
-              </Billboard>
-            </Grid>
-            <Grid xs={6}>
-              <MovementAccordion
-                sx={{
-                  textAlign: 'right',
-                  paddingRight: '1em',
-                  paddingBottom: { xs: '4.5em', sm: '5em', md: '10em' },
-                }}
-              />
-              <Box sx={{ position: 'relative' }}>
-                <Box
-                  as="img"
-                  src="./images/game.png"
-                  sx={{
-                    width: '100%',
-                    maxWidth: '425px',
-                    display: 'inline-block',
-                  }}
-                />
-              </Box>
-            </Grid>
-          </Grid>
+            <OutlawPicker
+              accountNftIds={accountNftIdArray}
+              accountNftCount={accountNftIdArray.length}
+            />
+          </Box>
           <GangEditor />
         </LocationContentArea>
         <Box

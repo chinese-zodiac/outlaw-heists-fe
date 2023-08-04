@@ -10,6 +10,8 @@ export default function useAccountNfts(nftAddress) {
 
     const [accountNftIdArray, setAccountNftIdArray] = useState([]);
 
+    const [prevAddress, setPrevAddress] = useState(ADDRESS_ZERO);
+
     const {
         data: nftCountData,
         isError: nftCountIsError,
@@ -32,7 +34,6 @@ export default function useAccountNfts(nftAddress) {
         if (!nftCount) return;
         if (nftCount == 0) return;
         (async () => {
-            console.log(nftCount)
             const data = await readContracts({
                 contracts: [...new Array(nftCount)].map((val, i) => ({
                     abi: IERC721Enumerable,
@@ -43,7 +44,14 @@ export default function useAccountNfts(nftAddress) {
             })
             setAccountNftIdArray(data)
         })();
-    }, [address, nftCount?.toString(), nftAddress]);
+    }, [prevAddress, nftCount?.toString(), nftAddress]);
+
+    useEffect(() => {
+        if (address != prevAddress) {
+            setAccountNftIdArray([]);
+            setPrevAddress(address);
+        }
+    }, [address])
 
     return { accountNftIdArray, accountNftCount: Number(nftCount?.toString()) }
 }

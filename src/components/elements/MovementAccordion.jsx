@@ -13,10 +13,10 @@ export default function MovementAccordion({ sx }) {
           backgroundSize: '100% 100%',
           width: '12.5em',
           maxWidth: '100%',
-          lineHeight: '0.5em',
+          lineHeight: '1.5em',
           minHeight: 0,
           padding: 0,
-          fontSize: '0.75em',
+          fontSize: '1.8em',
         }}
       >
         NO GANGS TO MOVE{' '}
