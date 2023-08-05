@@ -56,6 +56,11 @@ export default function OutlawInfoDialog({ nftId, btn, sx }) {
               <Typography sx={{ lineHeight: '1em', textAlign: 'left' }}>
                 {metadata?.description}
               </Typography>
+              <Typography
+                sx={{ lineHeight: '1em', textAlign: 'left', marginTop: '1em' }}
+              >
+                NFT ID: {nftId?.toString()}
+              </Typography>
             </Box>
           </>
         )}
