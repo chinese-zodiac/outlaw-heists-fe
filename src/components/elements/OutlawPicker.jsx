@@ -6,6 +6,7 @@ import { useAccount, useNetwork } from 'wagmi';
 import { LINK_OUTLAWS_MINT } from '../../constants/links';
 import ButtonImageLink from '../styled/ButtonImageLink';
 import OutlawImage from './OutlawImage';
+import OutlawInfoDialog from './OutlawInfoDialog';
 import OutlawName from './OutlawName';
 
 const GetOutlawsButton = () => (
@@ -209,33 +210,38 @@ export default function OutlawPicker({ accountNftIds, accountNftCount }) {
                       <OutlawName nftId={nftId} />
                     </Typography>
                   </Button>
-                  <Button
-                    variant="text"
-                    className="equip-btn"
-                    sx={{
-                      position: 'absolute',
-                      backgroundColor: '#701c1c',
-                      borderRadius: '0.85em',
-                      color: 'white',
-                      margin: 0,
-                      right: '0.75em',
-                      top: '0.75em',
-                      fontSize: { xs: '1em', sm: '1.5em' },
-                      minWidth: '0',
-                      width: '1.7em',
-                      height: '1.7em',
-                      padding: 0,
-                      display: 'block',
-                      fontFamily: 'serif',
-                      textTransform: 'none',
-                      fontWeight: 'bold',
-                      '&:hover': {
-                        backgroundColor: '#080830',
-                      },
-                    }}
-                  >
-                    i
-                  </Button>
+                  <OutlawInfoDialog
+                    nftId={nftId}
+                    btn={
+                      <Button
+                        variant="text"
+                        className="equip-btn"
+                        sx={{
+                          position: 'absolute',
+                          backgroundColor: '#701c1c',
+                          borderRadius: '0.85em',
+                          color: 'white',
+                          margin: 0,
+                          right: '0.75em',
+                          top: '0.75em',
+                          fontSize: { xs: '1em', sm: '1.5em' },
+                          minWidth: '0',
+                          width: '1.7em',
+                          height: '1.7em',
+                          padding: 0,
+                          display: 'block',
+                          fontFamily: 'serif',
+                          textTransform: 'none',
+                          fontWeight: 'bold',
+                          '&:hover': {
+                            backgroundColor: '#080830',
+                          },
+                        }}
+                      >
+                        i
+                      </Button>
+                    }
+                  />
                 </Box>
               </Grid2>
             ))}
