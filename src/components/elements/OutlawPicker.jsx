@@ -166,28 +166,16 @@ export default function OutlawPicker({ accountNftIds, accountNftCount }) {
             {accountNftIds.map((nftId) => (
               <Grid2 key={nftId} xs={4} md={3}>
                 <Box
-                  as="button"
                   sx={{
                     padding: '0.5em',
                     position: 'relative',
                     backgroundColor: 'transparent',
                     border: 'none',
-                    cursor: 'pointer',
-                    '& > img': {
-                      filter: 'hue-rotate(0deg) saturate(1)',
-                      transition: '500ms',
-                    },
-                    '&:hover > img': {
-                      filter: 'hue-rotate(220deg) saturate(1.5)',
-                    },
-                    '&:hover > .equip-btn': {
-                      backgroundColor: '#080830',
-                    },
+                    paddingBottom: '1.5em',
                   }}
                 >
                   <OutlawImage nftId={nftId} />
                   <Button
-                    as="div"
                     variant="text"
                     className="equip-btn"
                     sx={{
@@ -196,29 +184,57 @@ export default function OutlawPicker({ accountNftIds, accountNftCount }) {
                       borderRadius: '0',
                       color: 'white',
                       margin: 0,
-                      left: '0.5em',
-                      right: '0.5em',
-                      bottom: '0.6em',
+                      left: '0.4em',
+                      right: '0.4em',
+                      bottom: '0em',
                       lineHeight: '1em',
                       fontSize: '1.25em',
                       padding: 0,
-                      transition: '500ms',
+                      display: 'block',
                       '&:hover': {
-                        backgroundColor: '#701c1c',
+                        backgroundColor: '#080830',
                       },
                     }}
                   >
                     SELECT
-                    <br />
                     <Typography
+                      as="span"
                       sx={{
                         fontSize: '0.5em',
                         lineHeight: '0.75em',
                         margin: 0,
+                        display: 'block',
                       }}
                     >
                       <OutlawName nftId={nftId} />
                     </Typography>
+                  </Button>
+                  <Button
+                    variant="text"
+                    className="equip-btn"
+                    sx={{
+                      position: 'absolute',
+                      backgroundColor: '#701c1c',
+                      borderRadius: '0.85em',
+                      color: 'white',
+                      margin: 0,
+                      right: '0.75em',
+                      top: '0.75em',
+                      fontSize: { xs: '1em', sm: '1.5em' },
+                      minWidth: '0',
+                      width: '1.7em',
+                      height: '1.7em',
+                      padding: 0,
+                      display: 'block',
+                      fontFamily: 'serif',
+                      textTransform: 'none',
+                      fontWeight: 'bold',
+                      '&:hover': {
+                        backgroundColor: '#080830',
+                      },
+                    }}
+                  >
+                    i
                   </Button>
                 </Box>
               </Grid2>
