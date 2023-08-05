@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 import { useAccount, useNetwork } from 'wagmi';
 import { LINK_OUTLAWS_MINT } from '../../constants/links';
 import ButtonImageLink from '../styled/ButtonImageLink';
+import ConnectWallet from './ConnectWallet';
 import OutlawImage from './OutlawImage';
 import OutlawInfoDialog from './OutlawInfoDialog';
 import OutlawName from './OutlawName';
@@ -119,18 +120,26 @@ export default function OutlawPicker({ accountNftIds, accountNftCount }) {
           }}
         >
           {!address && (
-            <Typography
-              as="h3"
-              sx={{
-                fontSize: '2.5em',
-                lineHeight: '1em',
-                marginTop: '1em',
-                marginBottom: '5em',
-              }}
-            >
-              YER WALLET <br />
-              AINT CONNECTED!
-            </Typography>
+            <>
+              <Box
+                as="img"
+                src="./images/SHOCKED COWBOY.png"
+                sx={{ maxWidth: '100%', width: '120px', position: 'relative' }}
+              />
+
+              <Typography
+                as="h3"
+                sx={{
+                  fontSize: '2.5em',
+                  lineHeight: '1em',
+                  marginBottom: '5em',
+                }}
+              >
+                YER WALLET <br />
+                AINT CONNECTED!
+                <ConnectWallet />
+              </Typography>
+            </>
           )}
           {!!address && !isCorrectChain && (
             <Typography
@@ -144,6 +153,11 @@ export default function OutlawPicker({ accountNftIds, accountNftCount }) {
             >
               WRONG CHAIN BOSS! <br />
               SWITCH TO BSC
+              <Box
+                as="img"
+                src="./images/ROAD.png"
+                sx={{ maxWidth: '100%', position: 'relative' }}
+              />
             </Typography>
           )}
           {!!address && !!isCorrectChain && accountNftCount == 0 && (
