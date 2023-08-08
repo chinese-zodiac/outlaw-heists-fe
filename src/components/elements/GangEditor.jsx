@@ -5,6 +5,7 @@ import { ADDRESS_BANDIT } from '../../constants/addresses';
 import { czCashBuyLink } from '../../utils/czcashLink';
 import ButtonImageLink from '../styled/ButtonImageLink';
 import ButtonPrimary from '../styled/ButtonPrimary';
+import { bnToCompact } from '../../utils/bnToFixed';
 
 const EmptySlot = () => (
   <>
@@ -27,7 +28,7 @@ const EmptySlot = () => (
   </>
 );
 
-export default function GangEditor() {
+export default function GangEditor({banditBal}) {
   return (
     <>
       <Box sx={{ maxWidth: '880px', marginLeft: 'auto', marginRight: 'auto' }}>
@@ -89,10 +90,10 @@ export default function GangEditor() {
               />
               EQUIP BANDITS
             </ButtonPrimary>
-            <Typography sx={{ display: 'block' }}>
-              WALLET: 100.01 BANDITS
+            <Typography sx={{ display: 'block', color:'black' }}>
+              WALLET: {bnToCompact(banditBal,18,5)} BANDITS
             </Typography>
-            <Typography sx={{ display: 'block' }}>
+            <Typography sx={{ display: 'block',color:'#6E1C1C' }}>
               GANG: 100.00 BANDITS
             </Typography>
           </Box>

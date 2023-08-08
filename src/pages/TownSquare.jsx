@@ -90,7 +90,7 @@ export default function TownSquare() {
               accountNftCount={accountNftIdArray.length}
             />
           </Box>
-          <GangEditor />
+          <GangEditor banditBal={banditBal} />
         </LocationContentArea>
         <Box
           sx={{
