@@ -15,6 +15,7 @@ import LocationContentArea from '../components/layouts/LocationContentArea';
 import StatsAccordion from '../components/styled/StatsAccordion';
 import { ADDRESS_BANDIT, ADDRESS_OUTLAWS_NFT } from '../constants/addresses';
 import useAccountNfts from '../hooks/useAccountNfts';
+import { useState } from 'react';
 
 const banditContract = {
   address: ADDRESS_BANDIT,
@@ -41,16 +42,11 @@ export default function TownSquare() {
       ? banditBalData?.value
       : parseEther('0');
 
-  const {
-    data: outlawSupplyData,
-    isError: outlawSupplyIsError,
-    isLoading: outlawSupplyIsLoading,
-  } = useContractRead({
-    address: ADDRESS_OUTLAWS_NFT,
-    abi: IERC721EnumerableAbi,
-    functionName: 'totalSupply',
-    watch: true,
-  });
+  const [outlawIdsToAdd, setOutlawsIdsToAdd] = useState([]);
+  const handleAddOutlaw = (newOutlawId) => {
+    setOutlawsIdsToAdd((prevOutlawIds) => [...prevOutlawIds, newOutlawId]);
+  }
+
 
   const { accountNftIdArray } = useAccountNfts(ADDRESS_OUTLAWS_NFT);
 
@@ -87,6 +83,8 @@ export default function TownSquare() {
           >
             <OutlawPicker
               accountNftIds={accountNftIdArray}
+              handleAddOutlaw={handleAddOutlaw}
+              outlawIdsToAdd={outlawIdsToAdd}
               accountNftCount={accountNftIdArray.length}
             />
           </Box>

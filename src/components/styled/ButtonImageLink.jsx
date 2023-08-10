@@ -7,7 +7,6 @@ export default function ButtonImageLink({ sx, href, img, text }) {
   const theme = useTheme();
   return (
     <ButtonPrimary
-      as="a"
       variant="contained"
       href={href}
       sx={{

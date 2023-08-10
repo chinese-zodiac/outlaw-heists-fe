@@ -7,7 +7,6 @@ import DialogInfo from '../styled/DialogInfo';
 
 export default function OutlawInfoDialog({ nftId, btn, sx }) {
   const { metadata } = useOutlawMetadata(nftId);
-  console.log(metadata);
 
   return (
     <>
