@@ -12,6 +12,16 @@
         "type": "address"
       },
       {
+        "internalType": "contract IERC20",
+        "name": "_bandits",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC721",
+        "name": "_outlaws",
+        "type": "address"
+      },
+      {
         "internalType": "contract EntityStoreERC20",
         "name": "_entityStoreERC20",
         "type": "address"
@@ -186,21 +196,24 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "bandits",
+    "outputs": [
       {
-        "internalType": "contract Gangs",
-        "name": "_gang",
+        "internalType": "contract IERC20",
+        "name": "",
         "type": "address"
-      },
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
         "internalType": "uint256",
         "name": "_gangId",
         "type": "uint256"
-      },
-      {
-        "internalType": "contract IERC20",
-        "name": "_token",
-        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -208,7 +221,7 @@
         "type": "uint256"
       }
     ],
-    "name": "depositErc20",
+    "name": "depositBandits",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -216,19 +229,9 @@
   {
     "inputs": [
       {
-        "internalType": "contract Gangs",
-        "name": "_gang",
-        "type": "address"
-      },
-      {
         "internalType": "uint256",
         "name": "_gangId",
         "type": "uint256"
-      },
-      {
-        "internalType": "contract IERC721",
-        "name": "_nft",
-        "type": "address"
       },
       {
         "internalType": "uint256[]",
@@ -236,7 +239,7 @@
         "type": "uint256[]"
       }
     ],
-    "name": "depositErc721",
+    "name": "depositOutlaws",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -481,6 +484,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "outlaws",
+    "outputs": [
+      {
+        "internalType": "contract IERC721",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -562,6 +578,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint256[]",
+        "name": "_ids",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "spawnGangWithOutlaws",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes4",
         "name": "interfaceId",
         "type": "bytes4"
@@ -620,19 +649,9 @@
   {
     "inputs": [
       {
-        "internalType": "contract Gangs",
-        "name": "_gang",
-        "type": "address"
-      },
-      {
         "internalType": "uint256",
         "name": "_gangId",
         "type": "uint256"
-      },
-      {
-        "internalType": "contract IERC20",
-        "name": "_token",
-        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -640,7 +659,7 @@
         "type": "uint256"
       }
     ],
-    "name": "withdrawErc20",
+    "name": "withdrawBandits",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -648,19 +667,9 @@
   {
     "inputs": [
       {
-        "internalType": "contract Gangs",
-        "name": "_gang",
-        "type": "address"
-      },
-      {
         "internalType": "uint256",
         "name": "_gangId",
         "type": "uint256"
-      },
-      {
-        "internalType": "contract IERC721",
-        "name": "_nft",
-        "type": "address"
       },
       {
         "internalType": "uint256[]",
@@ -668,7 +677,7 @@
         "type": "uint256[]"
       }
     ],
-    "name": "withdrawErc721",
+    "name": "withdrawOutlaws",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
