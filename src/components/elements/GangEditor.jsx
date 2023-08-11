@@ -2,10 +2,10 @@ import { ModeEditOutline } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import { ADDRESS_BANDIT } from '../../constants/addresses';
+import { bnToCompact } from '../../utils/bnToFixed';
 import { czCashBuyLink } from '../../utils/czcashLink';
 import ButtonImageLink from '../styled/ButtonImageLink';
 import ButtonPrimary from '../styled/ButtonPrimary';
-import { bnToCompact } from '../../utils/bnToFixed';
 
 const EmptySlot = () => (
   <>
@@ -28,7 +28,7 @@ const EmptySlot = () => (
   </>
 );
 
-export default function GangEditor({banditBal}) {
+export default function GangEditor({ banditBal }) {
   return (
     <>
       <Box sx={{ maxWidth: '880px', marginLeft: 'auto', marginRight: 'auto' }}>
@@ -90,10 +90,10 @@ export default function GangEditor({banditBal}) {
               />
               EQUIP BANDITS
             </ButtonPrimary>
-            <Typography sx={{ display: 'block', color:'black' }}>
-              WALLET: {bnToCompact(banditBal,18,5)} BANDITS
+            <Typography sx={{ display: 'block', color: 'black' }}>
+              WALLET: {bnToCompact(banditBal, 18, 5)} BANDITS
             </Typography>
-            <Typography sx={{ display: 'block',color:'#6E1C1C' }}>
+            <Typography sx={{ display: 'block', color: '#6E1C1C' }}>
               GANG: 100.00 BANDITS
             </Typography>
           </Box>

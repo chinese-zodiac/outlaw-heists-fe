@@ -1,9 +1,9 @@
 import { useTheme } from '@emotion/react';
 import Box from '@mui/material/Box';
 import { parseEther } from 'ethers/lib/utils.js';
-import { useAccount, useBalance, useContractRead } from 'wagmi';
+import { useState } from 'react';
+import { useAccount, useBalance } from 'wagmi';
 import IERC20Abi from '../abi/IERC20.json';
-import IERC721EnumerableAbi from '../abi/IERC721Enumerable.json';
 import GangEditor from '../components/elements/GangEditor';
 import LocationTitle from '../components/elements/LocationTitle';
 import MovementAccordion from '../components/elements/MovementAccordion';
@@ -12,10 +12,10 @@ import TgCommentBox from '../components/elements/TgCommentBox';
 import FooterArea from '../components/layouts/FooterArea';
 import HeaderBar from '../components/layouts/HeaderBar';
 import LocationContentArea from '../components/layouts/LocationContentArea';
+import DialogError from '../components/styled/DialogError';
 import StatsAccordion from '../components/styled/StatsAccordion';
 import { ADDRESS_BANDIT, ADDRESS_OUTLAWS_NFT } from '../constants/addresses';
 import useAccountNfts from '../hooks/useAccountNfts';
-import { useState } from 'react';
 
 const banditContract = {
   address: ADDRESS_BANDIT,
@@ -43,15 +43,35 @@ export default function TownSquare() {
       : parseEther('0');
 
   const [outlawIdsToAdd, setOutlawsIdsToAdd] = useState([]);
-  const handleAddOutlaw = (newOutlawId) => {
-    setOutlawsIdsToAdd((prevOutlawIds) => [...prevOutlawIds, newOutlawId]);
-  }
 
+  const [isMaxOutlawsErrorOpen, setIsMaxOutlawsErrorOpen] = useState(false);
+
+  const toggleOutlawSelected = (nftId) => {
+    setOutlawsIdsToAdd((prevOutlawIds) => {
+      if (!prevOutlawIds.includes(nftId)) {
+        if (prevOutlawIds.length < 5) {
+          return [...prevOutlawIds, nftId];
+        } else {
+          setIsMaxOutlawsErrorOpen(true);
+          return [...prevOutlawIds];
+        }
+      } else {
+        return prevOutlawIds.filter((val) => val != nftId);
+      }
+    });
+  };
 
   const { accountNftIdArray } = useAccountNfts(ADDRESS_OUTLAWS_NFT);
 
   return (
     <>
+      <DialogError
+        open={isMaxOutlawsErrorOpen}
+        setOpen={setIsMaxOutlawsErrorOpen}
+      >
+        <h1>5 MAX</h1>
+        Yer Gang got too many Outlaws, Pardner!
+      </DialogError>
       <HeaderBar />
       <Box
         css={{
@@ -83,7 +103,7 @@ export default function TownSquare() {
           >
             <OutlawPicker
               accountNftIds={accountNftIdArray}
-              handleAddOutlaw={handleAddOutlaw}
+              toggleOutlawSelected={toggleOutlawSelected}
               outlawIdsToAdd={outlawIdsToAdd}
               accountNftCount={accountNftIdArray.length}
             />

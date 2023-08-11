@@ -12,7 +12,7 @@ export default function ButtonImageLink({ sx, href, img, text }) {
       sx={{
         backgroundColor: '#701C1C',
         borderRadius: 0,
-        width: '14em',
+        width: '15em',
         padding: '0.4em 0.25em',
         lineHeight: '1em',
         display: 'inline-block',

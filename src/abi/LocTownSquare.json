@@ -216,6 +216,29 @@
         "type": "uint256"
       },
       {
+        "internalType": "uint256[]",
+        "name": "_idsToDeposit",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_idsToWithdraw",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "depositAndWithdrawOutlaws",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gangId",
+        "type": "uint256"
+      },
+      {
         "internalType": "uint256",
         "name": "_wad",
         "type": "uint256"
