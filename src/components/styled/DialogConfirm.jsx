@@ -1,4 +1,4 @@
-import { Button, DialogContent } from '@mui/material';
+import { Button, DialogContent, Typography } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import * as React from 'react';
 
@@ -26,42 +26,51 @@ export default function DialogConfirm({
           }}
         >
           {children}
+          <br />
           <Button
             onClick={handleClose}
-            variant="outlined"
+            variant="text"
             autoFocus
             sx={{
-              color: 'red',
-              borderColor: 'red',
-              margin: '1em',
+              padding: '0.5em 0em 0.25em 0em',
+              width: '6em',
+              marginRight: '3em',
+              backgroundColor: '#701C1C',
+              borderRadius: '0',
+              color: 'white',
+              display: 'inline-block',
               '&:hover': {
-                color: 'darkRed',
-                borderColor: 'darkRed',
-                backgroundColor: 'lightRed',
+                backgroundColor: '#701C1C',
               },
             }}
           >
-            No, go back.
+            <Typography sx={{ fontSize: '2em', lineHeight: '1em' }}>
+              NO
+            </Typography>
+            GO BACK
           </Button>
           <Button
             onClick={() => {
-              handleClose();
               handleConfirmed();
             }}
-            variant="outlined"
+            variant="text"
             autoFocus
             sx={{
-              color: 'blue',
-              borderColor: 'blue',
-              margin: '1em',
+              padding: '0.5em 0em 0.25em 0em',
+              width: '6em',
+              backgroundColor: '#701C1C',
+              borderRadius: '0',
+              color: 'white',
+              display: 'inline-block',
               '&:hover': {
-                color: 'darkBlue',
-                borderColor: 'darkBlue',
-                backgroundColor: 'lightBlue',
+                backgroundColor: '#701C1C',
               },
             }}
           >
-            Yes, do it!
+            <Typography sx={{ fontSize: '2em', lineHeight: '1em' }}>
+              YES
+            </Typography>
+            DEW IT!
           </Button>
         </DialogContent>
       </Dialog>

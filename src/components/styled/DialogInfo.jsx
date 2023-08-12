@@ -13,8 +13,6 @@ export default function DialogInfo({ btn, children, sx }) {
     setOpen(false);
   };
 
-  const OpenButton = btn;
-
   return (
     <>
       {React.cloneElement(btn, {
@@ -33,15 +31,18 @@ export default function DialogInfo({ btn, children, sx }) {
           {children}
           <Button
             onClick={handleClose}
-            variant="outlined"
+            variant="text"
             autoFocus
             sx={{
-              color: 'blue',
-              borderColor: 'blue',
+              backgroundColor: '#701C1C',
+              color: 'white',
+              marginTop: '1em',
+              marginBottom: '2em',
+              fontSize: '1.25em',
+              paddingLeft: '1.5em',
+              paddingRight: '1.5em',
               '&:hover': {
-                color: 'darkBlue',
-                borderColor: 'darkBlue',
-                backgroundColor: 'lightBlue',
+                backgroundColor: '#701C1C',
               },
             }}
           >

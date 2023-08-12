@@ -19,6 +19,7 @@ import {
 import { LINK_OUTLAWS_MINT } from '../../constants/links';
 import ButtonImageLink from '../styled/ButtonImageLink';
 import DialogConfirm from '../styled/DialogConfirm';
+import DialogTransaction from '../styled/DialogTransaction';
 import ConnectWallet from './ConnectWallet';
 import OutlawImage from './OutlawImage';
 import OutlawInfoDialog from './OutlawInfoDialog';
@@ -68,26 +69,10 @@ export default function OutlawPicker({
   const isApprovedForAllOutlawsOnTownSquare =
     !isLoadingIsApprovedForAllOutlawsOnTownSquare &&
     !isErrorIsApprovedForAllOutlawsOnTownSquare
-      ? dataIsApprovedForAllOutlawsOnTownSquare?.value
+      ? dataIsApprovedForAllOutlawsOnTownSquare
       : false;
 
-  const { config: configSetApprovalForAllOutlawsOnTownSquare } =
-    usePrepareContractWrite({
-      address: ADDRESS_OUTLAWS_NFT,
-      abi: IERC721EnumerableAbi,
-      functionName: 'setApprovalForAll',
-      args: [ADDRESS_TOWN_SQUARE, true],
-      /*overrides: {
-      gasLimit: 200000,
-    },*/
-    });
-  const {
-    data: dataSetApprovalForAllOutlawsOnTownSquare,
-    error: errorSetApprovalForAllOutlawsOnTownSquare,
-    isLoading: isLoadingSetApprovalForAllOutlawsOnTownSquare,
-    isSuccess: isSuccessSetApprovalForAllOutlawsOnTownSquare,
-    write: writeSetApprovalForAllOutlawsOnTownSquare,
-  } = useContractWrite(configSetApprovalForAllOutlawsOnTownSquare);
+  console.log(dataIsApprovedForAllOutlawsOnTownSquare);
 
   const { config: configSpawnGangWithOutlaws } = usePrepareContractWrite({
     address: ADDRESS_TOWN_SQUARE,
@@ -249,23 +234,37 @@ export default function OutlawPicker({
               CONFIRM
             </Button>
           ) : (
-            <Button
-              variant="text"
-              onClick={writeSetApprovalForAllOutlawsOnTownSquare}
-              sx={{
-                backgroundColor: '#701c1c',
-                borderRadius: '0',
-                color: 'white',
-                margin: 0,
-                fontSize: { xs: '4.5vw', lg: '2em' },
-                position: 'relative',
-                '&:hover': {
-                  backgroundColor: '#080830',
-                },
-              }}
+            <DialogTransaction
+              address={ADDRESS_OUTLAWS_NFT}
+              abi={IERC721EnumerableAbi}
+              functionName="setApprovalForAll"
+              args={[ADDRESS_TOWN_SQUARE, true]}
+              title="APPROVE OUTLAWS"
+              btn={
+                <Button
+                  variant="text"
+                  sx={{
+                    backgroundColor: '#701c1c',
+                    borderRadius: '0',
+                    color: 'white',
+                    margin: 0,
+                    fontSize: { xs: '4.5vw', lg: '2em' },
+                    position: 'relative',
+                    '&:hover': {
+                      backgroundColor: '#080830',
+                    },
+                  }}
+                >
+                  APPROVE
+                </Button>
+              }
             >
-              APPROVE
-            </Button>
+              <Typography sx={{ fontSize: '1.25em', lineHeight: '1.25em' }}>
+                Approves the Town Square's Smart Contracts to transfer Outlaws
+                from your wallet to your Gang. Select YES to send the approve
+                transaction to your wallet.
+              </Typography>
+            </DialogTransaction>
           )}
         </Grid2>
         <Grid2

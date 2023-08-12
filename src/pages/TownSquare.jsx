@@ -1,4 +1,5 @@
 import { useTheme } from '@emotion/react';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { parseEther } from 'ethers/lib/utils.js';
 import { useState } from 'react';
@@ -68,9 +69,11 @@ export default function TownSquare() {
       <DialogError
         open={isMaxOutlawsErrorOpen}
         setOpen={setIsMaxOutlawsErrorOpen}
+        title="5 MAX"
       >
-        <h1>5 MAX</h1>
-        Yer Gang got too many Outlaws, Pardner!
+        <Typography sx={{ fontSize: '1.5em' }}>
+          Yer Gang got too many Outlaws, Pardner!
+        </Typography>
       </DialogError>
       <HeaderBar />
       <Box
