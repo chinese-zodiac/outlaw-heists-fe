@@ -2,7 +2,7 @@ import { useTheme } from '@emotion/react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { parseEther } from 'ethers/lib/utils.js';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 import IERC20Abi from '../abi/IERC20.json';
 import GangEditor from '../components/elements/GangEditor';
@@ -47,20 +47,23 @@ export default function TownSquare() {
 
   const [isMaxOutlawsErrorOpen, setIsMaxOutlawsErrorOpen] = useState(false);
 
-  const toggleOutlawSelected = (nftId) => {
-    setOutlawsIdsToAdd((prevOutlawIds) => {
-      if (!prevOutlawIds.includes(nftId)) {
-        if (prevOutlawIds.length < 5) {
-          return [...prevOutlawIds, nftId];
+  const toggleOutlawSelected = useCallback(
+    (nftId) => {
+      setOutlawsIdsToAdd((prevOutlawIds) => {
+        if (!prevOutlawIds.includes(nftId)) {
+          if (prevOutlawIds.length < 5) {
+            return [...prevOutlawIds, nftId];
+          } else {
+            setIsMaxOutlawsErrorOpen(true);
+            return [...prevOutlawIds];
+          }
         } else {
-          setIsMaxOutlawsErrorOpen(true);
-          return [...prevOutlawIds];
+          return prevOutlawIds.filter((val) => val != nftId);
         }
-      } else {
-        return prevOutlawIds.filter((val) => val != nftId);
-      }
-    });
-  };
+      });
+    },
+    [setOutlawsIdsToAdd]
+  );
 
   const { accountNftIdArray } = useAccountNfts(ADDRESS_OUTLAWS_NFT);
 

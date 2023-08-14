@@ -36,12 +36,13 @@ const useStore = create(
             });
 
             //Validate the ipfs cid
-            if (!gatewayTools.containsCID("ipfs://" + ipfsCid).containsCID) {
+            if (!gatewayTools.containsCID(ipfsCid).containsCid) {
                 outlawMetadataFetchStatus[nftId] = STATUS.FAILURE;
                 return;
             }
             let metadata = await getIpfsJson(getIpfsUrl('ipfs://' + ipfsCid));
             metadata.ipfsCid = ipfsCid;
+            metadata.nftId = nftId;
 
             //Basic metadata validation
             if (!metadata?.name || !metadata?.description || !metadata?.image || ipfsCid?.length != 46) {
@@ -53,7 +54,7 @@ const useStore = create(
             outlawMetadataFetchStatus[nftId] = STATUS.SUCCESS;
             return set((state) => ({ outlawMetadata: newOutlawMetadata }));
         }
-    }), { name: "outlawMetadata-storage" })
+    }), { name: "outlawMetadata-storage-v0.0.2" })
 );
 
 export default useStore
