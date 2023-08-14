@@ -12,8 +12,8 @@ export default function OutlawInfoDialog({ nftId, btn, sx }) {
     <>
       <DialogInfo btn={btn} sx={sx}>
         {!metadata && (
-          <Box sx={{ width: '100%', ...sx }}>
-            Metadata error
+          <Box sx={{ width: '100%', color: 'black', ...sx }}>
+            METADATA LOADING...
             <br />
             (ID: {nftId?.toString()})
           </Box>

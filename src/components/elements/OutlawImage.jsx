@@ -7,8 +7,8 @@ export default function OutlawImage({ nftId, sx }) {
   return (
     <>
       {!metadata && (
-        <Box sx={{ width: '100%', ...sx }}>
-          Metadata error
+        <Box sx={{ width: '100%', color: 'black', ...sx }}>
+          METADATA LOADING...
           <br />
           (ID: {nftId})
         </Box>

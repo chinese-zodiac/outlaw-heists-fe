@@ -118,9 +118,9 @@ export default function DialogTransaction({
               >
                 <CountdownCircleTimer
                   isPlaying
-                  duration={12}
+                  duration={9}
                   colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                  colorsTime={[12, 6, 3, 0]}
+                  colorsTime={[9, 6, 3, 0]}
                   onComplete={() => ({ shouldRepeat: false })}
                 >
                   {({ remainingTime }) => {
