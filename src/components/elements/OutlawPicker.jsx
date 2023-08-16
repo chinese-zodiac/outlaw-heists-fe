@@ -36,8 +36,8 @@ const GetOutlawsButton = () => (
 );
 
 export default function OutlawPicker({
-  accountNftIds,
-  accountNftCount,
+  accountOutlawIds,
+  accountOutlawCount,
   outlawIdsToAdd,
   toggleOutlawSelected,
 }) {
@@ -46,7 +46,6 @@ export default function OutlawPicker({
   const { chain, chains } = useNetwork();
 
   const isCorrectChain = chain?.id == 56;
-
   const {
     data: dataIsApprovedForAllOutlawsOnTownSquare,
     isError: isErrorIsApprovedForAllOutlawsOnTownSquare,
@@ -57,12 +56,14 @@ export default function OutlawPicker({
     functionName: 'isApprovedForAll',
     watch: true,
     args: [address, ADDRESS_TOWN_SQUARE],
+    enabled: !!address,
   });
   const isApprovedForAllOutlawsOnTownSquare =
     !isLoadingIsApprovedForAllOutlawsOnTownSquare &&
     !isErrorIsApprovedForAllOutlawsOnTownSquare
       ? dataIsApprovedForAllOutlawsOnTownSquare
       : false;
+
   return (
     <>
       <Grid2 columns={12} container>
@@ -177,7 +178,7 @@ export default function OutlawPicker({
               />
             </Typography>
           )}
-          {!!address && !!isCorrectChain && accountNftCount == 0 && (
+          {!!address && !!isCorrectChain && accountOutlawCount == 0 && (
             <Typography
               as="h3"
               sx={{
@@ -193,9 +194,9 @@ export default function OutlawPicker({
             </Typography>
           )}
         </Grid2>
-        {!!address && !!isCorrectChain && !(accountNftCount == 0) && (
+        {!!address && !!isCorrectChain && !(accountOutlawCount == 0) && (
           <>
-            {accountNftIds.map((nftId) => {
+            {accountOutlawIds.map((nftId) => {
               const isSelected = outlawIdsToAdd?.includes(
                 nftId?.toString() ?? ''
               );
@@ -224,7 +225,7 @@ export default function OutlawPicker({
                           borderWidth: isSelected ? '4px 4px 0px 4px ' : '0px',
                         }}
                       />
-                      <Button
+                      <Box
                         variant="text"
                         className="equip-btn"
                         as="div"
@@ -248,7 +249,7 @@ export default function OutlawPicker({
                           },
                         }}
                       >
-                        {isSelected ? 'REMOVE' : 'ADD'}
+                        {isSelected ? 'CANCEL' : 'ADD'}
                         <Typography
                           as="span"
                           sx={{
@@ -260,7 +261,7 @@ export default function OutlawPicker({
                         >
                           <OutlawName nftId={nftId} />
                         </Typography>
-                      </Button>
+                      </Box>
                     </Button>
                     <OutlawInfoDialog
                       nftId={nftId}

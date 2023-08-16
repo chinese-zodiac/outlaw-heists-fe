@@ -15,8 +15,13 @@ import HeaderBar from '../components/layouts/HeaderBar';
 import LocationContentArea from '../components/layouts/LocationContentArea';
 import DialogError from '../components/styled/DialogError';
 import StatsAccordion from '../components/styled/StatsAccordion';
-import { ADDRESS_BANDIT, ADDRESS_OUTLAWS_NFT } from '../constants/addresses';
+import {
+  ADDRESS_BANDIT,
+  ADDRESS_GANGS,
+  ADDRESS_OUTLAWS_NFT,
+} from '../constants/addresses';
 import useAccountNfts from '../hooks/useAccountNfts';
+import useGangName from '../hooks/useGangName';
 
 const banditContract = {
   address: ADDRESS_BANDIT,
@@ -65,7 +70,13 @@ export default function TownSquare() {
     [setOutlawsIdsToAdd]
   );
 
-  const { accountNftIdArray } = useAccountNfts(ADDRESS_OUTLAWS_NFT);
+  const { accountNftIdArray: accountOutlawIdArray } =
+    useAccountNfts(ADDRESS_OUTLAWS_NFT);
+  const { accountNftIdArray: accountGangIdArray } =
+    useAccountNfts(ADDRESS_GANGS);
+
+  const gangId = accountGangIdArray[0];
+  const gangName = useGangName(gangId);
 
   return (
     <>
@@ -108,13 +119,14 @@ export default function TownSquare() {
             }}
           >
             <OutlawPicker
-              accountNftIds={accountNftIdArray}
+              accountOutlawIds={accountOutlawIdArray}
+              accountOutlawCount={accountOutlawIdArray.length}
+              accountGangId={gangId}
               toggleOutlawSelected={toggleOutlawSelected}
               outlawIdsToAdd={outlawIdsToAdd}
-              accountNftCount={accountNftIdArray.length}
             />
           </Box>
-          <GangEditor banditBal={banditBal} />
+          <GangEditor banditBal={banditBal} gangId={gangId?.toString()} />
         </LocationContentArea>
         <Box
           sx={{

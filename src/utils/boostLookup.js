@@ -1,21 +1,23 @@
-export default async function boostLookup(outlawPersonalityIds) {
-    if ([0, 1, 2, 3, 4].every(id => outlawPersonalityIds.includes(id))) {
+import { OUTLAW_PERSONALITIES_ARR } from "../constants/textLoopups";
+
+export default function boostLookup(outlawsPersonalityArray) {
+    if (OUTLAW_PERSONALITIES_ARR.every(id => outlawsPersonalityArray.includes(id))) {
         return {
             boostType: "STRAIGHT",
             boostBp: 40000
         }
     }
 
-    if (outlawPersonalityIds.length == 0) {
+    if (outlawsPersonalityArray.length == 0) {
         return {
             boostType: "NONE",
             boostBp: 0
         }
     }
 
-    let sortedIds = outlawPersonalityIds.slice().sort();
-    let highestFreq = [undefined, 0]
-    let i = 0;
+    let sortedIds = outlawsPersonalityArray.slice().sort();
+    let highestFreq = [sortedIds[0], 1]
+    let i = 1;
     sortedIds.reduce((prev, curr) => {
         prev == curr ? ++i > highestFreq[1] && (highestFreq = [curr, i]) : i = 1;
         return curr;
@@ -56,4 +58,8 @@ export default async function boostLookup(outlawPersonalityIds) {
         }
     }
 
+    return {
+        boostType: "NONE",
+        boostBp: 0
+    }
 }

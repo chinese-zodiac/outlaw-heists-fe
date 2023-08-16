@@ -1,7 +1,7 @@
-import { ModeEditOutline } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import { ADDRESS_BANDIT } from '../../constants/addresses';
+import useGangName from '../../hooks/useGangName';
 import { bnToCompact } from '../../utils/bnToFixed';
 import { czCashBuyLink } from '../../utils/czcashLink';
 import ButtonImageLink from '../styled/ButtonImageLink';
@@ -28,7 +28,8 @@ const EmptySlot = () => (
   </>
 );
 
-export default function GangEditor({ banditBal }) {
+export default function GangEditor({ banditBal, gangId }) {
+  const name = useGangName(gangId ?? 0);
   return (
     <>
       <Box sx={{ maxWidth: '880px', marginLeft: 'auto', marginRight: 'auto' }}>
@@ -36,12 +37,14 @@ export default function GangEditor({ banditBal }) {
           sx={{
             textAlign: 'left',
             marginLeft: '2em',
+            textTransform: 'uppercase',
           }}
         >
+          {/* TODO: ADD EDIT GANG NAME 
           <ModeEditOutline
             sx={{ fontSize: '1.25em', position: 'relative', top: '0.2em' }}
-          />
-          NO GANG TO NAME{' '}
+        />*/}
+          {gangId == undefined ? <>NO GANG</> : <>{name}</>}
         </Typography>
         <Stack
           direction="row"

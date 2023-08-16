@@ -2,7 +2,7 @@ import { utils } from 'ethers';
 import { useEffect, useState } from "react";
 import { readContracts, useAccount, useContractRead } from "wagmi";
 import IERC721Enumerable from "../abi/IERC721Enumerable.json";
-import { ADDRESS_ZERO } from '../constants/addresses';
+import { ADDRESS_DEAD } from '../constants/addresses';
 const { formatEther, parseEther, Interface } = utils;
 
 export default function useAccountNfts(nftAddress) {
@@ -10,7 +10,7 @@ export default function useAccountNfts(nftAddress) {
 
     const [accountNftIdArray, setAccountNftIdArray] = useState([]);
 
-    const [prevAddress, setPrevAddress] = useState(ADDRESS_ZERO);
+    const [prevAddress, setPrevAddress] = useState(ADDRESS_DEAD);
 
     const {
         data: nftCountData,
@@ -20,13 +20,14 @@ export default function useAccountNfts(nftAddress) {
         abi: IERC721Enumerable,
         address: nftAddress,
         functionName: 'balanceOf',
-        args: [address ?? ADDRESS_ZERO],
+        args: [address],
         watch: true,
+        enabled: !!address
     });
 
     const nftCount =
         !nftCountIsLoading && !nftCountIsError
-            ? Number(nftCountData.toString())
+            ? Number(nftCountData?.toString() ?? 0)
             : 0;
 
     useEffect(() => {
@@ -39,7 +40,7 @@ export default function useAccountNfts(nftAddress) {
                     abi: IERC721Enumerable,
                     address: nftAddress,
                     functionName: 'tokenOfOwnerByIndex',
-                    args: [address ?? ADDRESS_ZERO, i]
+                    args: [address, i]
                 }))
             })
             setAccountNftIdArray(data)

@@ -11,7 +11,12 @@ import OutlawName from './OutlawName';
 
 export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
   const { metadataMulti } = useOutlawMetadataMulti(outlawIdsToAdd);
-  console.log('metadataMulti', metadataMulti);
+  const boost = boostLookup(
+    metadataMulti.map(
+      (metadata) =>
+        metadata.attributes.find((attr) => attr?.trait_type == 'Item')?.value
+    )
+  );
 
   return (
     <>
@@ -121,10 +126,10 @@ export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
           BOOST
         </Typography>
         <Typography sx={{ fontSize: '2em', lineHeight: '1em' }}>
-          0% ➙ {boostLookup([1, 2]).boostBp / 100}%
+          0% ➙ {boost?.boostBp / 100}%
         </Typography>
         <Typography sx={{ fontSize: '1em', lineHeight: '1em' }}>
-          (3 OF A KIND)
+          ({boost?.boostType})
         </Typography>
       </DialogTransaction>
     </>

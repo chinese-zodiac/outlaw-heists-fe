@@ -268,7 +268,7 @@ export const WordList3 = [
     "Winks",
     "Boons",
     "Weeds",
-    "Clubs",
+    "Club",
     "Dregs",
     "Gears",
     "Ducks",

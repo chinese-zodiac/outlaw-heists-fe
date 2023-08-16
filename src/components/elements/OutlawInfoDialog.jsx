@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { OUTLAW_PERSONALITIES } from '../../constants/textLoopups';
+import { OUTLAW_PERSONALITIES_NAMES } from '../../constants/textLoopups';
 import useOutlawMetadata from '../../hooks/useOutlawMetadata';
 import { getIpfsUrl } from '../../utils/getIpfsJson';
 import DialogInfo from '../styled/DialogInfo';
@@ -41,7 +41,7 @@ export default function OutlawInfoDialog({ nftId, btn, sx }) {
               }}
             >
               {!!metadata?.attributes[2]?.value &&
-                OUTLAW_PERSONALITIES[metadata.attributes[2].value]}
+                OUTLAW_PERSONALITIES_NAMES[metadata.attributes[2].value]}
             </Typography>
             <Typography sx={{ lineHeight: '1em', textAlign: 'left' }}>
               {metadata?.description}
