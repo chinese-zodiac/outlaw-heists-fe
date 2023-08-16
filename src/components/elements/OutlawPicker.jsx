@@ -9,6 +9,7 @@ import {
   ADDRESS_TOWN_SQUARE,
 } from '../../constants/addresses';
 import { LINK_OUTLAWS_MINT } from '../../constants/links';
+import useAccountNfts from '../../hooks/useAccountNfts';
 import ButtonImageLink from '../styled/ButtonImageLink';
 import ConnectWallet from './ConnectWallet';
 import DialogApproveOutlaws from './DialogApproveOutlaws';
@@ -36,14 +37,19 @@ const GetOutlawsButton = () => (
 );
 
 export default function OutlawPicker({
-  accountOutlawIds,
-  accountOutlawCount,
   outlawIdsToAdd,
-  toggleOutlawSelected,
+  toggleOutlawSelectedToAdd,
+  outlawIdsToRemove,
+  toggleOutlawSelectedToRemove,
+  gangId,
 }) {
   const theme = useTheme();
   const { address, isConnecting, isDisconnected } = useAccount();
   const { chain, chains } = useNetwork();
+
+  const { accountNftIdArray: accountOutlawIds } =
+    useAccountNfts(ADDRESS_OUTLAWS_NFT);
+  const accountOutlawCount = accountOutlawIds?.length ?? 0;
 
   const isCorrectChain = chain?.id == 56;
   const {
@@ -125,7 +131,15 @@ export default function OutlawPicker({
           }}
         >
           {!!isApprovedForAllOutlawsOnTownSquare ? (
-            <DialogConfirmOutlawAssignment outlawIdsToAdd={outlawIdsToAdd} />
+            <DialogConfirmOutlawAssignment
+              {...{
+                outlawIdsToAdd,
+                toggleOutlawSelectedToAdd,
+                outlawIdsToRemove,
+                toggleOutlawSelectedToRemove,
+                gangId,
+              }}
+            />
           ) : (
             <DialogApproveOutlaws />
           )}
@@ -213,7 +227,7 @@ export default function OutlawPicker({
                   >
                     <Button
                       onClick={() => {
-                        toggleOutlawSelected(nftId?.toString());
+                        toggleOutlawSelectedToAdd(nftId?.toString());
                       }}
                       sx={{ margin: 0, padding: 0 }}
                     >

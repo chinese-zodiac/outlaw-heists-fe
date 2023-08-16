@@ -43,7 +43,7 @@ export default function useGangName(gangId) {
         functionName: 'getName',
         args: [gangId],
         watch: true,
-        enabled: !!gangId
+        enabled: !!gangId || gangId == 0
     });
 
     const name =

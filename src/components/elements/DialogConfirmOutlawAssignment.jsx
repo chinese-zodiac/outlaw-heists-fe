@@ -3,19 +3,48 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { Box } from '@mui/system';
 import LocTownSquareAbi from '../../abi/LocTownSquare.json';
 import { ADDRESS_TOWN_SQUARE } from '../../constants/addresses';
+import useGangName from '../../hooks/useGangName';
+import useGangOwnedOutlawIds from '../../hooks/useGangOwnedOutlawIds';
 import { useOutlawMetadataMulti } from '../../hooks/useOutlawMetadata';
 import boostLookup from '../../utils/boostLookup';
 import DialogTransaction from '../styled/DialogTransaction';
 import OutlawImage from './OutlawImage';
 import OutlawName from './OutlawName';
 
-export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
-  const { metadataMulti } = useOutlawMetadataMulti(outlawIdsToAdd);
+export default function DialogConfirmOutlawAssignment({
+  outlawIdsToAdd,
+  toggleOutlawSelectedToAdd,
+  outlawIdsToRemove,
+  toggleOutlawSelectedToRemove,
+  gangId,
+}) {
+  const { gangOwnedOutlawIds } = useGangOwnedOutlawIds(gangId);
+  const name = useGangName(gangId);
+  const isNewGang = !name;
+  const { metadataMulti } = useOutlawMetadataMulti([
+    ...outlawIdsToAdd,
+    ...outlawIdsToRemove,
+    ...gangOwnedOutlawIds,
+  ]);
+  const newOutlawIds = [
+    ...gangOwnedOutlawIds.filter((id) => outlawIdsToRemove.indexOf(id) === -1),
+    ...outlawIdsToAdd,
+  ];
+  const boostPrev = boostLookup(
+    metadataMulti
+      .filter((metadata) => gangOwnedOutlawIds.includes(metadata.nftId))
+      .map(
+        (metadata) =>
+          metadata.attributes.find((attr) => attr?.trait_type == 'Item')?.value
+      )
+  );
   const boost = boostLookup(
-    metadataMulti.map(
-      (metadata) =>
-        metadata.attributes.find((attr) => attr?.trait_type == 'Item')?.value
-    )
+    metadataMulti
+      .filter((metadata) => newOutlawIds.includes(metadata.nftId))
+      .map(
+        (metadata) =>
+          metadata.attributes.find((attr) => attr?.trait_type == 'Item')?.value
+      )
   );
 
   return (
@@ -23,9 +52,19 @@ export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
       <DialogTransaction
         address={ADDRESS_TOWN_SQUARE}
         abi={LocTownSquareAbi}
-        functionName="spawnGangWithOutlaws"
-        args={[outlawIdsToAdd]}
+        functionName={
+          isNewGang ? 'spawnGangWithOutlaws' : 'depositAndWithdrawOutlaws'
+        }
+        args={
+          isNewGang
+            ? [outlawIdsToAdd]
+            : [gangId, outlawIdsToAdd, outlawIdsToRemove]
+        }
         title="GANG ASSIGNMENTS"
+        onSuccess={() => {
+          outlawIdsToAdd.forEach((id) => toggleOutlawSelectedToAdd(id));
+          outlawIdsToRemove.forEach((id) => toggleOutlawSelectedToRemove(id));
+        }}
         btn={
           <Button
             variant="text"
@@ -56,7 +95,7 @@ export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
           FOR
         </Typography>
         <Typography sx={{ fontSize: '2em', lineHeight: '1em' }}>
-          NEW GANG
+          {isNewGang ? 'NEW GANG' : name}
         </Typography>
         <Typography
           sx={{
@@ -69,9 +108,18 @@ export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
         >
           NEW LINEUP
         </Typography>
-        {outlawIdsToAdd?.length > 0 ? (
-          <Grid2 container columns={10} spacing={1}>
-            {outlawIdsToAdd.map((nftId) => (
+        {newOutlawIds?.length > 0 ? (
+          <Grid2
+            container
+            columns={10}
+            spacing={1}
+            sx={{
+              border: 'solid 2px #701c1c',
+              borderRadius: '8px',
+              justifyContent: 'center',
+            }}
+          >
+            {newOutlawIds.map((nftId) => (
               <Grid2 key={nftId} xs={2}>
                 <OutlawImage nftId={nftId} />
                 <Typography
@@ -86,7 +134,7 @@ export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
                 </Typography>
               </Grid2>
             ))}
-            {Array(5 - outlawIdsToAdd?.length ?? 0)
+            {Array(5 - newOutlawIds?.length ?? 0)
               .fill(0)
               .map((_, i) => {
                 <Grid2 key={i} xs={2}>
@@ -126,7 +174,7 @@ export default function DialogConfirmOutlawAssignment({ outlawIdsToAdd }) {
           BOOST
         </Typography>
         <Typography sx={{ fontSize: '2em', lineHeight: '1em' }}>
-          0% ➙ {boost?.boostBp / 100}%
+          {boostPrev?.boostBp / 100}% ➙ {boost?.boostBp / 100}%
         </Typography>
         <Typography sx={{ fontSize: '1em', lineHeight: '1em' }}>
           ({boost?.boostType})

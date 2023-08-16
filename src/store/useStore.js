@@ -17,6 +17,8 @@ const STATUS = {
 
 const useStore = create(
     persist((set, get) => ({
+        loadoutSelectedGangIndex: 0,
+        setLoadoutSelectedGangIndex: (gangId) => set({ loadoutSelectedGangIndex: gangId }),
         outlawMetadata: [],
         fetchOutlawMetadata: async (_nftId) => {
             //If undefined is accidentally passed, do nothing.

@@ -14,6 +14,7 @@ export default function DialogTransaction({
   abi,
   functionName,
   args,
+  onSuccess,
 }) {
   const [open, setOpen] = React.useState(false);
   const [openTxStatus, setOpenTxStatus] = React.useState(false);
@@ -25,7 +26,7 @@ export default function DialogTransaction({
     args,
   });
   const { data, error, isError, isLoading, isSuccess, write } =
-    useContractWrite(config);
+    useContractWrite({ ...config, onSuccess });
   const txHash = data?.hash ?? '';
 
   const handleClickOpen = () => {

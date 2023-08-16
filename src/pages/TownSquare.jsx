@@ -5,7 +5,7 @@ import { parseEther } from 'ethers/lib/utils.js';
 import { useCallback, useState } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 import IERC20Abi from '../abi/IERC20.json';
-import GangEditor from '../components/elements/GangEditor';
+import GangBarRemovable from '../components/elements/GangBarRemovable';
 import LocationTitle from '../components/elements/LocationTitle';
 import MovementAccordion from '../components/elements/MovementAccordion';
 import OutlawPicker from '../components/elements/OutlawPicker';
@@ -21,7 +21,7 @@ import {
   ADDRESS_OUTLAWS_NFT,
 } from '../constants/addresses';
 import useAccountNfts from '../hooks/useAccountNfts';
-import useGangName from '../hooks/useGangName';
+import useStore from '../store/useStore';
 
 const banditContract = {
   address: ADDRESS_BANDIT,
@@ -49,10 +49,14 @@ export default function TownSquare() {
       : parseEther('0');
 
   const [outlawIdsToAdd, setOutlawsIdsToAdd] = useState([]);
+  const [outlawIdsToRemove, setOutlawsIdsToRemove] = useState([]);
+  const loadoutSelectedGangIndex = useStore(
+    (state) => state.loadoutSelectedGangIndex
+  );
 
   const [isMaxOutlawsErrorOpen, setIsMaxOutlawsErrorOpen] = useState(false);
 
-  const toggleOutlawSelected = useCallback(
+  const toggleOutlawSelectedToAdd = useCallback(
     (nftId) => {
       setOutlawsIdsToAdd((prevOutlawIds) => {
         if (!prevOutlawIds.includes(nftId)) {
@@ -70,13 +74,30 @@ export default function TownSquare() {
     [setOutlawsIdsToAdd]
   );
 
+  const toggleOutlawSelectedToRemove = useCallback(
+    (nftId) => {
+      setOutlawsIdsToRemove((prevOutlawIds) => {
+        if (!prevOutlawIds.includes(nftId)) {
+          if (prevOutlawIds.length < 5) {
+            return [...prevOutlawIds, nftId];
+          } else {
+            setIsMaxOutlawsErrorOpen(true);
+            return [...prevOutlawIds];
+          }
+        } else {
+          return prevOutlawIds.filter((val) => val != nftId);
+        }
+      });
+    },
+    [setOutlawsIdsToRemove]
+  );
+
   const { accountNftIdArray: accountOutlawIdArray } =
     useAccountNfts(ADDRESS_OUTLAWS_NFT);
   const { accountNftIdArray: accountGangIdArray } =
     useAccountNfts(ADDRESS_GANGS);
 
-  const gangId = accountGangIdArray[0];
-  const gangName = useGangName(gangId);
+  const gangId = accountGangIdArray[loadoutSelectedGangIndex];
 
   return (
     <>
@@ -119,14 +140,19 @@ export default function TownSquare() {
             }}
           >
             <OutlawPicker
-              accountOutlawIds={accountOutlawIdArray}
-              accountOutlawCount={accountOutlawIdArray.length}
-              accountGangId={gangId}
-              toggleOutlawSelected={toggleOutlawSelected}
+              gangId={gangId?.toString()}
+              toggleOutlawSelectedToAdd={toggleOutlawSelectedToAdd}
               outlawIdsToAdd={outlawIdsToAdd}
+              toggleOutlawSelectedToRemove={toggleOutlawSelectedToRemove}
+              outlawIdsToRemove={outlawIdsToRemove}
+            />
+            <GangBarRemovable
+              banditBal={banditBal}
+              gangId={gangId?.toString()}
+              outlawIdsToRemove={outlawIdsToRemove}
+              toggleOutlawSelectedToRemove={toggleOutlawSelectedToRemove}
             />
           </Box>
-          <GangEditor banditBal={banditBal} gangId={gangId?.toString()} />
         </LocationContentArea>
         <Box
           sx={{

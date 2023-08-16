@@ -1,16 +1,10 @@
 import { utils } from 'ethers';
-import { useEffect, useState } from "react";
-import { readContracts, useAccount, useContractRead } from "wagmi";
+import { useAccount, useContractRead, useContractReads } from "wagmi";
 import IERC721Enumerable from "../abi/IERC721Enumerable.json";
-import { ADDRESS_DEAD } from '../constants/addresses';
 const { formatEther, parseEther, Interface } = utils;
 
 export default function useAccountNfts(nftAddress) {
     const { address, isConnecting, isDisconnected } = useAccount();
-
-    const [accountNftIdArray, setAccountNftIdArray] = useState([]);
-
-    const [prevAddress, setPrevAddress] = useState(ADDRESS_DEAD);
 
     const {
         data: nftCountData,
@@ -30,29 +24,21 @@ export default function useAccountNfts(nftAddress) {
             ? Number(nftCountData?.toString() ?? 0)
             : 0;
 
-    useEffect(() => {
-        if (!address) return;
-        if (!nftCount) return;
-        if (nftCount == 0) return;
-        (async () => {
-            const data = await readContracts({
-                contracts: [...new Array(nftCount)].map((val, i) => ({
-                    abi: IERC721Enumerable,
-                    address: nftAddress,
-                    functionName: 'tokenOfOwnerByIndex',
-                    args: [address, i]
-                }))
-            })
-            setAccountNftIdArray(data)
-        })();
-    }, [prevAddress, nftCount?.toString(), nftAddress]);
-
-    useEffect(() => {
-        if (address != prevAddress) {
-            setAccountNftIdArray([]);
-            setPrevAddress(address);
-        }
-    }, [address])
+    const {
+        data: accountNftIdArrayData,
+        isError: accountNftIdArrayIsError,
+        isLoading: accountNftIdArrayIsLoading,
+    } = useContractReads({
+        contracts: [...new Array(nftCount)].map((val, i) => ({
+            abi: IERC721Enumerable,
+            address: nftAddress,
+            functionName: 'tokenOfOwnerByIndex',
+            args: [address, i],
+        })),
+        watch: true,
+        enabled: !!address && nftCount > 0
+    });
+    const accountNftIdArray = accountNftIdArrayData ?? [];
 
     return { accountNftIdArray, accountNftCount: Number(nftCount?.toString()) }
 }
