@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 import IERC20Abi from '../abi/IERC20.json';
 import GangBarRemovable from '../components/elements/GangBarRemovable';
+import Loadout from '../components/elements/Loadout';
 import LocationTitle from '../components/elements/LocationTitle';
 import MovementAccordion from '../components/elements/MovementAccordion';
 import OutlawPicker from '../components/elements/OutlawPicker';
@@ -92,11 +93,15 @@ export default function TownSquare() {
     [setOutlawsIdsToRemove]
   );
 
+  const deselectOutlawsAll = useCallback(() => {
+    setOutlawsIdsToAdd([]);
+    setOutlawsIdsToRemove([]);
+  });
+
   const { accountNftIdArray: accountOutlawIdArray } =
     useAccountNfts(ADDRESS_OUTLAWS_NFT);
   const { accountNftIdArray: accountGangIdArray } =
     useAccountNfts(ADDRESS_GANGS);
-
   const gangId = accountGangIdArray[loadoutSelectedGangIndex];
 
   return (
@@ -145,6 +150,7 @@ export default function TownSquare() {
               outlawIdsToAdd={outlawIdsToAdd}
               toggleOutlawSelectedToRemove={toggleOutlawSelectedToRemove}
               outlawIdsToRemove={outlawIdsToRemove}
+              deselectOutlawsAll={deselectOutlawsAll}
             />
             <GangBarRemovable
               banditBal={banditBal}
@@ -156,21 +162,32 @@ export default function TownSquare() {
         </LocationContentArea>
         <Box
           sx={{
-            maxWidth: '640px',
+            maxWidth: '1280px',
             marginLeft: 'auto',
             marginRight: 'auto',
             paddingTop: '1em',
           }}
         >
-          <StatsAccordion title="INVENTORY">your gang's items</StatsAccordion>
-          <StatsAccordion title="LOADOUT">
-            pick your active gangs
+          <StatsAccordion title="INVENTORY">
+            <Typography sx={{ fontSize: '1.5em', color: '#c' }}>
+              UNDER CONSTRUCTION
+            </Typography>
+            <Typography sx={{ color: 'black' }}>
+              Once the Saloon and Armory are released, you will be able to view
+              your Gang's inventory of Gear and Bottles here.
+            </Typography>
           </StatsAccordion>
-          <StatsAccordion title="TRANSACTION STATUS">
-            the status of your most recent blockchain transactions
+          <StatsAccordion title="LOADOUT">
+            <Loadout {...{ accountGangIdArray, deselectOutlawsAll }} />
           </StatsAccordion>
           <StatsAccordion title="GANGS ONLINE">
-            all gangs in the world
+            <Typography sx={{ fontSize: '1.5em', color: '#6E1C1C' }}>
+              UNDER CONSTRUCTION
+            </Typography>
+            <Typography sx={{ color: 'black' }}>
+              Once the Red Canyons are released, you will be able to view all
+              Gangs in the World here.
+            </Typography>
           </StatsAccordion>
         </Box>
         <TgCommentBox

@@ -172,7 +172,7 @@ export default function DialogTransaction({
                 color: 'white',
                 display: 'inline-block',
                 '&:hover': {
-                  backgroundColor: '#701C1C',
+                  backgroundColor: '#080830',
                 },
               }}
             >
@@ -195,7 +195,7 @@ export default function DialogTransaction({
               color: 'white',
               display: 'inline-block',
               '&:hover': {
-                backgroundColor: '#701C1C',
+                backgroundColor: '#080830',
               },
             }}
           >

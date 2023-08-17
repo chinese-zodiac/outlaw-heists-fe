@@ -13,9 +13,7 @@ import OutlawName from './OutlawName';
 
 const EmptySlot = () => (
   <>
-    <Stack
-      justifyContent="center"
-      alignItems="center"
+    <Box
       sx={{
         backgroundColor: '#582C2C',
         opacity: '83%',
@@ -24,7 +22,7 @@ const EmptySlot = () => (
         width: { xs: '17vw', sm: '15vw' },
         maxWidth: '150px',
       }}
-    ></Stack>
+    />
   </>
 );
 

@@ -41,6 +41,7 @@ export default function OutlawPicker({
   toggleOutlawSelectedToAdd,
   outlawIdsToRemove,
   toggleOutlawSelectedToRemove,
+  deselectOutlawsAll,
   gangId,
 }) {
   const theme = useTheme();
@@ -137,6 +138,7 @@ export default function OutlawPicker({
                 toggleOutlawSelectedToAdd,
                 outlawIdsToRemove,
                 toggleOutlawSelectedToRemove,
+                deselectOutlawsAll,
                 gangId,
               }}
             />

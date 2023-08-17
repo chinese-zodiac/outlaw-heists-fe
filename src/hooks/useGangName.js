@@ -5,9 +5,9 @@ import { WordList3 } from "../constants/WordList3";
 import { ADDRESS_GANGS } from "../constants/addresses";
 
 function nameDataToName(getNameData) {
-    return "The " + WordList1And2[getNameData.word1_.toString()] + " " +
-        WordList1And2[getNameData.word2_.toString()] + " " +
-        WordList3[getNameData.word3_.toString()]
+    return WordList1And2[getNameData?.word1_?.toString()] + " " +
+        WordList1And2[getNameData?.word2_?.toString()] + " " +
+        WordList3[getNameData?.word3_?.toString()]
 }
 
 export function useGangNameMulti(gangIds) {

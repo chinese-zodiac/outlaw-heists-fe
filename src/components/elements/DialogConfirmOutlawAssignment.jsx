@@ -16,6 +16,7 @@ export default function DialogConfirmOutlawAssignment({
   toggleOutlawSelectedToAdd,
   outlawIdsToRemove,
   toggleOutlawSelectedToRemove,
+  deselectOutlawsAll,
   gangId,
 }) {
   const { gangOwnedOutlawIds } = useGangOwnedOutlawIds(gangId);
@@ -31,20 +32,18 @@ export default function DialogConfirmOutlawAssignment({
     ...outlawIdsToAdd,
   ];
   const boostPrev = boostLookup(
-    metadataMulti
-      .filter((metadata) => gangOwnedOutlawIds.includes(metadata.nftId))
-      .map(
-        (metadata) =>
-          metadata.attributes.find((attr) => attr?.trait_type == 'Item')?.value
-      )
+    gangOwnedOutlawIds.map(
+      (id) =>
+        metadataMulti[id].attributes.find((attr) => attr?.trait_type == 'Item')
+          ?.value
+    )
   );
   const boost = boostLookup(
-    metadataMulti
-      .filter((metadata) => newOutlawIds.includes(metadata.nftId))
-      .map(
-        (metadata) =>
-          metadata.attributes.find((attr) => attr?.trait_type == 'Item')?.value
-      )
+    newOutlawIds.map(
+      (id) =>
+        metadataMulti[id].attributes.find((attr) => attr?.trait_type == 'Item')
+          ?.value
+    )
   );
 
   return (
@@ -61,10 +60,7 @@ export default function DialogConfirmOutlawAssignment({
             : [gangId, outlawIdsToAdd, outlawIdsToRemove]
         }
         title="GANG ASSIGNMENTS"
-        onSuccess={() => {
-          outlawIdsToAdd.forEach((id) => toggleOutlawSelectedToAdd(id));
-          outlawIdsToRemove.forEach((id) => toggleOutlawSelectedToRemove(id));
-        }}
+        onSuccess={deselectOutlawsAll}
         btn={
           <Button
             variant="text"
