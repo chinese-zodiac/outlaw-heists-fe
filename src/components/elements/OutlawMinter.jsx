@@ -163,7 +163,7 @@ export default function OutlawMinter({ nftId }) {
               as="img"
               src={
                 !!metadata
-                  ? `./images/trait-${metadata.attributes[2].value}.png`
+                  ? `./images/trait-${metadata?.attributes[2]?.value}.png`
                   : undefined
               }
               sx={{
@@ -183,7 +183,8 @@ export default function OutlawMinter({ nftId }) {
                 paddingRight: 2,
               }}
             >
-              {!!metadata && OUTLAW_PERSONALITIES[metadata.attributes[2].value]}
+              {!!metadata &&
+                OUTLAW_PERSONALITIES[metadata?.attributes[2]?.value]}
             </Typography>
           </Box>
           {startTimer == 'OPEN' ? (

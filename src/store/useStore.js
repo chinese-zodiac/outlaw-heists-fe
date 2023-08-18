@@ -56,7 +56,7 @@ const useStore = create(
             outlawMetadataFetchStatus[nftId] = STATUS.SUCCESS;
             return set((state) => ({ outlawMetadata: newOutlawMetadata }));
         }
-    }), { name: "outlawMetadata-storage-v0.0.2" })
+    }), { name: "outlawMetadata-storage-v0.0.3" })
 );
 
 export default useStore

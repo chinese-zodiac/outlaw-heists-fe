@@ -10,7 +10,7 @@ export function useGangOwnedOutlawIdsMulti(nftIds) {
         isError,
         isLoading
     } = useContractReads({
-        contracts: nftIds.map((id) => ({
+        contracts: nftIds?.map((id) => ({
             abi: EntityStoreERC721Abi,
             address: ADDRESS_ENTITY_STORE_ERC721,
             functionName: 'viewOnly_getAllStoredERC721',
@@ -20,8 +20,8 @@ export function useGangOwnedOutlawIdsMulti(nftIds) {
         enabled: !!nftIds && nftIds.length > 0
     });
 
-    const gangIdToOutlawIds = nftIds.reduce((prev, id, i) =>
-        ({ ...prev, [id.toString()]: !isError && !isLoading ? data[i].map((id) => id.toString()) : [] }),
+    const gangIdToOutlawIds = nftIds?.reduce((prev, id, i) =>
+        ({ ...prev, [id.toString()]: !isError && !isLoading && !!data[i] ? data[i].map((id) => id.toString()) : [] }),
         {});
 
     return { gangIdToOutlawIds };

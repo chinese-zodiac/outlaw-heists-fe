@@ -30,7 +30,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
     boostLookup(
       gangIdToOutlawIds[gangId]?.map(
         (id) =>
-          metadataMulti[id].attributes.find(
+          metadataMulti[id]?.attributes.find(
             (attr) => attr?.trait_type == 'Item'
           )?.value
       )
@@ -64,60 +64,70 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
               borderColor: gangId == selectedGangId ? 'blue' : 'white',
             }}
           >
-            <Stack
-              direction="row"
-              spacing={{ xs: 1, md: 2 }}
+            <Button
+              variant="text"
               sx={{
-                alignItems: 'start',
+                width: '100%',
+                minWidth: '100%',
+                display: 'block',
+                padding: 0,
+                backgroundColor: 'white',
+                marginBottom: '0.25em',
+                '&:hover': {
+                  backgroundColor: '#e1e1f1',
+                },
               }}
             >
-              <Typography
+              <Stack
+                direction="row"
+                spacing={{ xs: 1, md: 2 }}
                 sx={{
-                  color: '#6E1C1C',
-                  fontSize: { xs: '1.25em', md: '1.5em' },
-                  textTransform: 'uppercase',
-                  lineHeight: '1em',
+                  alignItems: 'start',
                 }}
-                as="h3"
               >
-                {names[gangId]}
-              </Typography>
-              {gangId != selectedGangId ? (
-                <Button
-                  onClick={() => handleChangeLoadout(i)}
+                <Typography
                   sx={{
-                    padding: 0,
-                    marginLeft: 'auto !important',
-                    color: 'white',
-                    backgroundColor: '#6E1C1C',
-                    '&:hover': {
-                      backgroundColor: '#080830',
-                    },
+                    color: '#6E1C1C',
+                    fontSize: { xs: '1.25em', md: '1.5em' },
+                    textTransform: 'uppercase',
+                    lineHeight: '1em',
                   }}
+                  as="h3"
                 >
-                  ⇆
-                </Button>
-              ) : (
-                <Box
-                  sx={{
-                    padding: 0,
-                    marginLeft: 'auto !important',
-                    color: 'blue',
-                  }}
-                >
-                  ★
-                </Box>
-              )}
-            </Stack>
-            <Typography sx={{ color: 'black', lineHeight: '1em' }}>
-              TOWN SQUARE
-            </Typography>
-            <Typography sx={{ color: 'black', lineHeight: '1em' }}>
-              0💪 0🧠 0🎯
-            </Typography>
-            <Typography sx={{ color: 'black', lineHeight: '1em' }}>
-              BOOST: {boosts[i].boostBp / 100}% ({boosts[i].boostType})
-            </Typography>
+                  {names[gangId]}
+                </Typography>
+                {gangId != selectedGangId ? (
+                  <Box
+                    onClick={() => handleChangeLoadout(i)}
+                    sx={{
+                      padding: 0,
+                      marginLeft: 'auto !important',
+                      color: 'white',
+                      backgroundColor: '#6E1C1C',
+                      lineHeight: '1.2em',
+                      borderRadius: '0.25em',
+                      width: '1.5em',
+                      '&:hover': {
+                        backgroundColor: '#080830',
+                      },
+                    }}
+                  >
+                    ⇆
+                  </Box>
+                ) : (
+                  <Box
+                    sx={{
+                      padding: 0,
+                      marginLeft: 'auto !important',
+                      color: 'blue',
+                      lineHeight: '1.2em',
+                    }}
+                  >
+                    ★
+                  </Box>
+                )}
+              </Stack>
+            </Button>
             <Stack
               direction="row"
               justifyContent="center"
@@ -140,6 +150,46 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                   />
                 )
               )}
+            </Stack>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{
+                flexWrap: 'wrap',
+              }}
+            >
+              <Typography
+                sx={{
+                  color: 'black',
+                  lineHeight: '1em',
+                }}
+              >
+                TOWN SQUARE
+              </Typography>
+              <Typography
+                sx={{
+                  color: 'black',
+                  lineHeight: '1em',
+                }}
+              >
+                0💪 0🧠 0🎯
+              </Typography>
+              <Typography
+                sx={{
+                  color: 'black',
+                  lineHeight: '1em',
+                }}
+              >
+                BOOST: {boosts[i].boostBp / 100}% ({boosts[i].boostType})
+              </Typography>
+              <Typography
+                sx={{
+                  color: 'black',
+                  lineHeight: '1em',
+                }}
+              >
+                BANDITS: 100.00
+              </Typography>
             </Stack>
           </Box>
         ))}

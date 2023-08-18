@@ -34,14 +34,14 @@ export default function DialogConfirmOutlawAssignment({
   const boostPrev = boostLookup(
     gangOwnedOutlawIds.map(
       (id) =>
-        metadataMulti[id].attributes.find((attr) => attr?.trait_type == 'Item')
+        metadataMulti[id]?.attributes.find((attr) => attr?.trait_type == 'Item')
           ?.value
     )
   );
   const boost = boostLookup(
     newOutlawIds.map(
       (id) =>
-        metadataMulti[id].attributes.find((attr) => attr?.trait_type == 'Item')
+        metadataMulti[id]?.attributes.find((attr) => attr?.trait_type == 'Item')
           ?.value
     )
   );
