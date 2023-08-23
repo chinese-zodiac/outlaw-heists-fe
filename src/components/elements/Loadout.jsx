@@ -1,14 +1,18 @@
 import { Button, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import LocTownSquareAbi from '../../abi/LocTownSquare.json';
-import { ADDRESS_TOWN_SQUARE } from '../../constants/addresses';
+import { ADDRESS_BANDIT, ADDRESS_TOWN_SQUARE } from '../../constants/addresses';
 import { useGangNameMulti } from '../../hooks/useGangName';
+import { useGangOwnedERC20Multi } from '../../hooks/useGangOwnedERC20';
 import { useGangOwnedOutlawIdsMulti } from '../../hooks/useGangOwnedOutlawIds';
 import { useOutlawMetadataMulti } from '../../hooks/useOutlawMetadata';
 import useStore from '../../store/useStore';
+import { bnToCompact } from '../../utils/bnToFixed';
 import boostLookup from '../../utils/boostLookup';
 import DialogTransaction from '../styled/DialogTransaction';
 import OutlawImage from './OutlawImage';
+import OutlawInfoDialog from './OutlawInfoDialog';
+import OutlawName from './OutlawName';
 
 export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
   const [loadoutSelectedGangIndex, setLoadoutSelectedGangIndex] = useStore(
@@ -21,6 +25,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
     accountGangIdArray?.[loadoutSelectedGangIndex]?.toString();
 
   const names = useGangNameMulti(accountGangIdArray);
+  const gangBals = useGangOwnedERC20Multi(ADDRESS_BANDIT, accountGangIdArray);
   const { gangIdToOutlawIds } = useGangOwnedOutlawIdsMulti(accountGangIdArray);
   const { metadataMulti } = useOutlawMetadataMulti(
     accountGangIdArray.map((gangId) => gangIdToOutlawIds[gangId])?.flat()
@@ -65,6 +70,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
             }}
           >
             <Button
+              onClick={() => handleChangeLoadout(i)}
               variant="text"
               sx={{
                 width: '100%',
@@ -98,7 +104,6 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                 </Typography>
                 {gangId != selectedGangId ? (
                   <Box
-                    onClick={() => handleChangeLoadout(i)}
                     sx={{
                       padding: 0,
                       marginLeft: 'auto !important',
@@ -134,8 +139,57 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
               spacing={{ xs: 1, md: 2 }}
             >
               {gangIdToOutlawIds[gangId].map((outlawId, j) => (
-                <Box key={i + '-' + j} sx={{ width: '20%' }}>
+                <Box
+                  key={i + '-' + j}
+                  sx={{ width: '20%', position: 'relative' }}
+                >
                   <OutlawImage nftId={metadataMulti[outlawId]?.nftId} />
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '0.5em', md: '0.75em' },
+                      lineHeight: '1.25em',
+                      paddingTop: '0.1em',
+                      margin: 0,
+                      textAlign: 'center',
+                      textTransform: 'uppercase',
+                      backgroundColor: '#701c1c',
+                      color: 'white',
+                    }}
+                  >
+                    <OutlawName nftId={outlawId} />
+                  </Typography>
+                  <OutlawInfoDialog
+                    nftId={outlawId}
+                    btn={
+                      <Button
+                        variant="text"
+                        className="equip-btn"
+                        sx={{
+                          position: 'absolute',
+                          backgroundColor: '#701c1c',
+                          borderRadius: '0.85em',
+                          color: 'white',
+                          margin: 0,
+                          right: '0.25em',
+                          top: '0.25em',
+                          fontSize: { xs: '0.5em', sm: '1em' },
+                          minWidth: '0',
+                          width: '1.7em',
+                          height: '1.7em',
+                          padding: 0,
+                          display: 'block',
+                          fontFamily: 'serif',
+                          textTransform: 'none',
+                          fontWeight: 'bold',
+                          '&:hover': {
+                            backgroundColor: '#080830',
+                          },
+                        }}
+                      >
+                        i
+                      </Button>
+                    }
+                  />
                 </Box>
               ))}
               {[...new Array(5 - gangIdToOutlawIds[gangId].length)].map(
@@ -156,6 +210,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
               spacing={2}
               sx={{
                 flexWrap: 'wrap',
+                marginTop: '0.5em',
               }}
             >
               <Typography
@@ -188,7 +243,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                   lineHeight: '1em',
                 }}
               >
-                BANDITS: 100.00
+                BANDITS: {bnToCompact(gangBals[gangId], 18, 5)}
               </Typography>
             </Stack>
           </Box>

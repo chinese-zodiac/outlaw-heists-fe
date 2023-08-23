@@ -2,11 +2,13 @@ import { Button, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import { ADDRESS_BANDIT } from '../../constants/addresses';
 import useGangName from '../../hooks/useGangName';
+import useGangOwnedERC20 from '../../hooks/useGangOwnedERC20';
 import useGangOwnedOutlawIds from '../../hooks/useGangOwnedOutlawIds';
 import { bnToCompact } from '../../utils/bnToFixed';
 import { czCashBuyLink } from '../../utils/czcashLink';
 import ButtonImageLink from '../styled/ButtonImageLink';
 import ButtonPrimary from '../styled/ButtonPrimary';
+import DialogEquipErc20 from '../styled/DialogEquipErc20';
 import OutlawImage from './OutlawImage';
 import OutlawInfoDialog from './OutlawInfoDialog';
 import OutlawName from './OutlawName';
@@ -132,6 +134,7 @@ export default function GangBarRemovable({
   toggleOutlawSelectedToRemove,
 }) {
   const name = useGangName(gangId ?? 0);
+  const gangBal = useGangOwnedERC20(ADDRESS_BANDIT, gangId);
   const { gangOwnedOutlawIds } = useGangOwnedOutlawIds(gangId);
   return (
     <>
@@ -173,39 +176,47 @@ export default function GangBarRemovable({
           sx={{ marginTop: '1em' }}
         >
           <Box>
-            <ButtonPrimary
-              sx={{
-                backgroundColor: '#701C1C',
-                borderRadius: 0,
-                display: 'inline-block',
-                fontSize: '1.5em',
-                width: '11em',
-                padding: '0.4em 0.25em',
-                lineHeight: '1em',
-                margin: 0,
-              }}
-            >
-              <Box
-                sx={{
-                  backgroundImage: "url('./logo.png')",
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  width: '1em',
-                  height: '1em',
-                  margin: '0',
-                  marginRight: '0.25em',
-                  position: 'relative',
-                  top: '0.15em',
-                  display: 'inline-block',
-                }}
-              />
-              EQUIP BANDITS
-            </ButtonPrimary>
+            <DialogEquipErc20
+              btn={
+                <ButtonPrimary
+                  sx={{
+                    backgroundColor: '#701C1C',
+                    borderRadius: 0,
+                    display: 'inline-block',
+                    fontSize: '1.5em',
+                    width: '11em',
+                    padding: '0.4em 0.25em',
+                    lineHeight: '1em',
+                    margin: 0,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      backgroundImage: "url('./logo.png')",
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      width: '1em',
+                      height: '1em',
+                      margin: '0',
+                      marginRight: '0.25em',
+                      position: 'relative',
+                      top: '0.15em',
+                      display: 'inline-block',
+                    }}
+                  />
+                  EQUIP BANDITS
+                </ButtonPrimary>
+              }
+              gangId={gangId}
+              tokenAddress={ADDRESS_BANDIT}
+              tokenLogo={'./logo.png'}
+              tokenSymbol={'BANDIT'}
+            />
             <Typography sx={{ display: 'block', color: 'black' }}>
               WALLET: {bnToCompact(banditBal, 18, 5)} BANDITS
             </Typography>
             <Typography sx={{ display: 'block', color: '#6E1C1C' }}>
-              GANG: 100.00 BANDITS
+              GANG: {bnToCompact(gangBal, 18, 5)} BANDITS
             </Typography>
           </Box>
           <ButtonImageLink

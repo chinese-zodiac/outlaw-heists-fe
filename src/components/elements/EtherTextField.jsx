@@ -1,3 +1,4 @@
+import { BigNumber } from 'ethers';
 import { formatUnits, parseUnits } from 'ethers/lib/utils.js';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -38,9 +39,16 @@ function EtherTextField({
   );
 
   const [prevValue, setPrevValue] = useState(value);
-  if (prevValue !== value) {
+  if (
+    (!!prevValue &&
+      !!value &&
+      !BigNumber.from(prevValue ?? BigNumber.from('0'))?.eq(
+        value ?? BigNumber.from('0')
+      )) ||
+    !prevValue
+  ) {
     setPrevValue(value);
-    inputValue;
+    setInputValue(getInputValueFromPropValue(value, decimals));
   }
 
   const updateValue = (event) => {
@@ -49,7 +57,7 @@ function EtherTextField({
     if (targetValue === '') {
       setPrevValue(targetValue);
       setInputValue(targetValue);
-      onChange(targetValue);
+      onChange(BigNumber.from('0'));
       return;
     }
 
@@ -64,19 +72,19 @@ function EtherTextField({
     if (!!min && newValue.lt(min)) {
       setPrevValue(min.toString());
       setInputValue(formatUnits(min, decimals));
-      onChange(min.toString());
+      onChange(BigNumber.from(min.toString()));
       return;
     }
 
     if (!!max && newValue.gt(max)) {
       setPrevValue(max.toString());
       setInputValue(formatUnits(max, decimals));
-      onChange(max.toString());
+      onChange(BigNumber.from(max.toString()));
       return;
     }
     setPrevValue(newValue.toString());
     setInputValue(targetValue);
-    onChange(newValue.toString());
+    onChange(BigNumber.from(newValue.toString()));
   };
 
   const inputProps = {
