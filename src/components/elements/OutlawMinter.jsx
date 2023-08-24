@@ -44,7 +44,7 @@ export default function OutlawMinter({ nftId }) {
   });
 
   const banditBal =
-    !banditBalIsLoading && !banditBalIsError
+    !banditBalIsLoading && !banditBalIsError && !!banditBalData?.value
       ? banditBalData?.value
       : parseEther('0');
 
@@ -61,7 +61,9 @@ export default function OutlawMinter({ nftId }) {
   });
 
   const banditAllowance =
-    !banditAllowanceIsLoading && !banditAllowanceIsError
+    !banditAllowanceIsLoading &&
+    !banditAllowanceIsError &&
+    !!banditAllowanceData
       ? banditAllowanceData
       : parseEther('0');
 

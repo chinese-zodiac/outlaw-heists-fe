@@ -45,7 +45,7 @@ export default function TownSquare() {
   });
 
   const banditBal =
-    !banditBalIsLoading && !banditBalIsError
+    !banditBalIsLoading && !banditBalIsError && !!banditBalData?.value
       ? banditBalData?.value
       : parseEther('0');
 

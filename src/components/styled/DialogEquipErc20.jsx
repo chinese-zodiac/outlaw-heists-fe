@@ -52,7 +52,9 @@ export default function DialogEquipErc20({
   });
 
   const allowance =
-    !isLoadingAllowance && !isErrorAllowance ? dataAllowance : parseEther('0');
+    !isLoadingAllowance && !isErrorAllowance && !!dataAllowance
+      ? dataAllowance
+      : parseEther('0');
 
   const {
     data: tokenBalData,
@@ -66,7 +68,7 @@ export default function DialogEquipErc20({
   });
 
   const tokenBal =
-    !tokenBalIsLoading && !tokenBalIsError
+    !tokenBalIsLoading && !tokenBalIsError && !!tokenBalData?.value
       ? tokenBalData?.value
       : parseEther('0');
 
@@ -96,7 +98,7 @@ export default function DialogEquipErc20({
           <Button
             onClick={() => {
               setIsEquip(true);
-              setInputWad(BigNumber.from('0'));
+              setInputWad(BigNumber.from(0));
             }}
             sx={{
               padding: '0.25em 0em 0.1em 0em',
@@ -118,7 +120,7 @@ export default function DialogEquipErc20({
           <Button
             onClick={() => {
               setIsEquip(false);
-              setInputWad(BigNumber.from('0'));
+              setInputWad(BigNumber.from(0));
             }}
             sx={{
               padding: '0.25em 0em 0.1em 0em',
