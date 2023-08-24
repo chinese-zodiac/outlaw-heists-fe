@@ -47,7 +47,7 @@ export default function useGangName(gangId) {
     });
 
     const name =
-        !getNameIsLoading && !getNameIsError
+        !getNameIsLoading && !getNameIsError && !!getNameData
             ? nameDataToName(getNameData)
             : "";
 
