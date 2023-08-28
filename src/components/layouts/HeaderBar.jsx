@@ -74,7 +74,7 @@ function HeaderBar({}) {
               position: 'absolute',
               left: 0,
               right: 0,
-              bottom: 0,
+              bottom: { xs: 0, md: '-1.25vw', lg: '-1.6vw', xl: '-1.8vw' },
               width: '100%',
             }}
           />
@@ -84,7 +84,7 @@ function HeaderBar({}) {
             sx={{
               position: 'absolute',
               left: 5,
-              bottom: 3,
+              bottom: { xs: 3, md: '0.3vw', lg: '0.2vw' },
               width: '20vw',
               maxWidth: 100,
             }}
@@ -95,7 +95,13 @@ function HeaderBar({}) {
             sx={{
               position: 'absolute',
               left: '22vw',
-              bottom: '2vw',
+              bottom: {
+                xs: 5,
+                sm: '2.2vw',
+                md: '0.8vw',
+                lg: '0.5vw',
+                xl: '0.25vw',
+              },
               width: '7vw',
               maxWidth: 30,
             }}
@@ -106,7 +112,7 @@ function HeaderBar({}) {
             sx={{
               position: 'absolute',
               right: '5vw',
-              bottom: '1.5vw',
+              bottom: { xs: 4, sm: '1.5vw', md: '0.4vw', lg: '0' },
               width: 100,
             }}
           />
