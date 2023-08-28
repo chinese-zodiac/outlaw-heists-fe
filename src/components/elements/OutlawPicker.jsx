@@ -204,7 +204,7 @@ export default function OutlawPicker({
                 marginBottom: '5em',
               }}
             >
-              YA AINT GOT <br />
+              YER WALLET GOT <br />
               NO OUTLAWS! <br />
               <GetOutlawsButton />
             </Typography>
