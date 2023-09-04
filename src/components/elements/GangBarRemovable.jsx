@@ -176,42 +176,54 @@ export default function GangBarRemovable({
           sx={{ marginTop: '1em' }}
         >
           <Box>
-            <DialogEquipErc20
-              btn={
-                <ButtonPrimary
-                  sx={{
-                    backgroundColor: '#701C1C',
-                    borderRadius: 0,
-                    display: 'inline-block',
-                    fontSize: '1.5em',
-                    width: '11em',
-                    padding: '0.4em 0.25em',
-                    lineHeight: '1em',
-                    margin: 0,
-                  }}
-                >
-                  <Box
+            {gangId == undefined ? (
+              <DialogEquipErc20
+                btn={
+                  <ButtonPrimary
                     sx={{
-                      backgroundImage: "url('./logo.png')",
-                      backgroundSize: 'contain',
-                      backgroundRepeat: 'no-repeat',
-                      width: '1em',
-                      height: '1em',
-                      margin: '0',
-                      marginRight: '0.25em',
-                      position: 'relative',
-                      top: '0.15em',
+                      backgroundColor: '#701C1C',
+                      borderRadius: 0,
                       display: 'inline-block',
+                      fontSize: '1.5em',
+                      width: '11em',
+                      padding: '0.4em 0.25em',
+                      lineHeight: '1em',
+                      margin: 0,
                     }}
-                  />
-                  EQUIP BANDITS
-                </ButtonPrimary>
-              }
-              gangId={gangId}
-              tokenAddress={ADDRESS_BANDIT}
-              tokenLogo={'./logo.png'}
-              tokenSymbol={'BANDIT'}
-            />
+                  >
+                    <Box
+                      sx={{
+                        backgroundImage: "url('./logo.png')",
+                        backgroundSize: 'contain',
+                        backgroundRepeat: 'no-repeat',
+                        width: '1em',
+                        height: '1em',
+                        margin: '0',
+                        marginRight: '0.25em',
+                        position: 'relative',
+                        top: '0.15em',
+                        display: 'inline-block',
+                      }}
+                    />
+                    EQUIP BANDITS
+                  </ButtonPrimary>
+                }
+                gangId={gangId}
+                tokenAddress={ADDRESS_BANDIT}
+                tokenLogo={'./logo.png'}
+                tokenSymbol={'BANDIT'}
+              />
+            ) : (
+              <Typography sx={{ fontSize: '1.2em' }}>
+                YOU AINT GOT NO GANG YET!
+                <br />
+                (1) Get Bandits BEP20 from cz.cash
+                <br />
+                (1) Get Outlaws NFT from outlaws.cz.cash
+                <br />
+                (2) Select and confirm your Outlaws
+              </Typography>
+            )}
             <Typography sx={{ display: 'block', color: 'black' }}>
               WALLET: {bnToCompact(banditBal, 18, 5)} BANDITS
             </Typography>
