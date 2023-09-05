@@ -176,7 +176,7 @@ export default function GangBarRemovable({
           sx={{ marginTop: '1em' }}
         >
           <Box>
-            {gangId == undefined ? (
+            {gangId != undefined ? (
               <DialogEquipErc20
                 btn={
                   <ButtonPrimary
@@ -219,9 +219,9 @@ export default function GangBarRemovable({
                 <br />
                 (1) Get Bandits BEP20 from cz.cash
                 <br />
-                (1) Get Outlaws NFT from outlaws.cz.cash
+                (2) Get Outlaws NFT from outlaws.cz.cash
                 <br />
-                (2) Select and confirm your Outlaws
+                (3) Select and confirm your Outlaws
               </Typography>
             )}
             <Typography sx={{ display: 'block', color: 'black' }}>
