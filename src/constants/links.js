@@ -9,3 +9,5 @@ export const LINK_PRIVACY_POLICY = "https://docs.czodiac.com/czodiac-litepaper/p
 
 
 export const LINK_OUTLAWS_MINT = "https://outlaws.cz.cash";
+
+export const LINK_SILVER_DOLLARS_TRADING = "https://numis.cz.cash";

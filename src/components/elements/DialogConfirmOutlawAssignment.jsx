@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { Box } from '@mui/system';
 import LocTownSquareAbi from '../../abi/LocTownSquare.json';
-import { ADDRESS_TOWN_SQUARE } from '../../constants/addresses';
+import { LOCATION_TOWN_SQUARE } from '../../constants/locations';
 import useGangName from '../../hooks/useGangName';
 import useGangOwnedOutlawIds from '../../hooks/useGangOwnedOutlawIds';
 import { useOutlawMetadataMulti } from '../../hooks/useOutlawMetadata';
@@ -49,7 +49,7 @@ export default function DialogConfirmOutlawAssignment({
   return (
     <>
       <DialogTransaction
-        address={ADDRESS_TOWN_SQUARE}
+        address={LOCATION_TOWN_SQUARE}
         abi={LocTownSquareAbi}
         functionName={
           isNewGang ? 'spawnGangWithOutlaws' : 'depositAndWithdrawOutlaws'

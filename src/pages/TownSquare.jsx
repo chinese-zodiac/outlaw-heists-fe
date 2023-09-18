@@ -6,30 +6,24 @@ import { useCallback, useState } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 import IERC20Abi from '../abi/IERC20.json';
 import GangBarRemovable from '../components/elements/GangBarRemovable';
-import Loadout from '../components/elements/Loadout';
 import LocationTitle from '../components/elements/LocationTitle';
-import MovementAccordion from '../components/elements/MovementAccordion';
+import MoveButton from '../components/elements/MoveButton';
 import OutlawPicker from '../components/elements/OutlawPicker';
 import TgCommentBox from '../components/elements/TgCommentBox';
 import FooterArea from '../components/layouts/FooterArea';
 import HeaderBar from '../components/layouts/HeaderBar';
 import LocationContentArea from '../components/layouts/LocationContentArea';
+import StatsArea from '../components/layouts/StatsArea';
 import DialogError from '../components/styled/DialogError';
-import StatsAccordion from '../components/styled/StatsAccordion';
-import {
-  ADDRESS_BANDIT,
-  ADDRESS_GANGS,
-  ADDRESS_OUTLAWS_NFT,
-} from '../constants/addresses';
-import useAccountNfts from '../hooks/useAccountNfts';
-import useStore from '../store/useStore';
+import { ADDRESS_BANDIT } from '../constants/addresses';
+import { LOCATION_SILVER_STORE } from '../constants/locations';
 
 const banditContract = {
   address: ADDRESS_BANDIT,
   abi: IERC20Abi,
 };
 
-export default function TownSquare() {
+export default function TownSquare({ accountGangIdArray, activeGangId }) {
   const theme = useTheme();
 
   const { address, isConnecting, isDisconnected } = useAccount();
@@ -51,9 +45,6 @@ export default function TownSquare() {
 
   const [outlawIdsToAdd, setOutlawsIdsToAdd] = useState([]);
   const [outlawIdsToRemove, setOutlawsIdsToRemove] = useState([]);
-  const loadoutSelectedGangIndex = useStore(
-    (state) => state.loadoutSelectedGangIndex
-  );
 
   const [isMaxOutlawsErrorOpen, setIsMaxOutlawsErrorOpen] = useState(false);
 
@@ -98,12 +89,6 @@ export default function TownSquare() {
     setOutlawsIdsToRemove([]);
   });
 
-  const { accountNftIdArray: accountOutlawIdArray } =
-    useAccountNfts(ADDRESS_OUTLAWS_NFT);
-  const { accountNftIdArray: accountGangIdArray } =
-    useAccountNfts(ADDRESS_GANGS);
-  const gangId = accountGangIdArray[loadoutSelectedGangIndex];
-
   return (
     <>
       <DialogError
@@ -126,26 +111,21 @@ export default function TownSquare() {
         }}
       >
         <LocationTitle>TOWN SQUARE</LocationTitle>
-        <LocationContentArea>
-          <MovementAccordion
-            sx={{
-              textAlign: 'right',
-              paddingRight: '1em',
-              paddingBottom: { xs: '0em' },
-            }}
-          />
+        <LocationContentArea
+          sx={{
+            paddingTop: { xs: '3em', sm: '3.75em', md: '0em' },
+          }}
+        >
           <Box
             css={{
               position: 'relative',
-              backgroundColor: theme.palette.primary.dark,
-              backgroundImage: "url('./images/plank 1 1.png')",
               backgroundSize: '100%',
               marginTop: '1em',
               padding: '0.5em',
             }}
           >
             <OutlawPicker
-              gangId={gangId?.toString()}
+              gangId={activeGangId?.toString()}
               toggleOutlawSelectedToAdd={toggleOutlawSelectedToAdd}
               outlawIdsToAdd={outlawIdsToAdd}
               toggleOutlawSelectedToRemove={toggleOutlawSelectedToRemove}
@@ -154,42 +134,41 @@ export default function TownSquare() {
             />
             <GangBarRemovable
               banditBal={banditBal}
-              gangId={gangId?.toString()}
+              gangId={activeGangId?.toString()}
               outlawIdsToRemove={outlawIdsToRemove}
               toggleOutlawSelectedToRemove={toggleOutlawSelectedToRemove}
             />
+            <Box
+              sx={{
+                display: 'inline-block',
+                backgroundImage: "url('./images/paper 1.png')",
+                backgroundSize: '100% 100%',
+                width: '12.5em',
+                textAlign: 'center',
+                color: 'black',
+                padding: '1em',
+              }}
+            >
+              <Typography sx={{ fontSize: '2em' }}>MAP</Typography>
+              <Typography
+                sx={{ fontSize: '1.2em', textTransform: 'uppercase' }}
+              >
+                📍 Town Square
+              </Typography>
+              <MoveButton
+                sx={{ marginBottom: '0.4em' }}
+                destinationAddress={LOCATION_SILVER_STORE}
+                destinationName="Silver Store"
+                gangId={activeGangId?.toString()}
+                destinationAbout="At the Silver Store, you can equip and uneqip Silver Dollar NFTs from numis.cz.cash to your Gang. Each Silver Dollar NFT gives your Gang an additive 10% power boost, meaning your Gang will be 10% stronger for each Silver Dollar NFT it holds in both PvP and PvE."
+              >
+                Silver Store
+              </MoveButton>
+              <MoveButton isLocked={true}>Red Canyons</MoveButton>
+            </Box>
           </Box>
         </LocationContentArea>
-        <Box
-          sx={{
-            maxWidth: '1280px',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            paddingTop: '1em',
-          }}
-        >
-          <StatsAccordion title="INVENTORY">
-            <Typography sx={{ fontSize: '1.5em', color: '#c' }}>
-              UNDER CONSTRUCTION
-            </Typography>
-            <Typography sx={{ color: 'black' }}>
-              Once the Saloon and Armory are released, you will be able to view
-              your Gang's inventory of Gear and Bottles here.
-            </Typography>
-          </StatsAccordion>
-          <StatsAccordion title="LOADOUT">
-            <Loadout {...{ accountGangIdArray, deselectOutlawsAll }} />
-          </StatsAccordion>
-          <StatsAccordion title="GANGS ONLINE">
-            <Typography sx={{ fontSize: '1.5em', color: '#6E1C1C' }}>
-              UNDER CONSTRUCTION
-            </Typography>
-            <Typography sx={{ color: 'black' }}>
-              Once the Red Canyons are released, you will be able to view all
-              Gangs in the World here.
-            </Typography>
-          </StatsAccordion>
-        </Box>
+        <StatsArea {...{ accountGangIdArray, deselectOutlawsAll }} />
         <TgCommentBox
           dataTelegramDiscussion="banditlsdt/3988"
           sx={{

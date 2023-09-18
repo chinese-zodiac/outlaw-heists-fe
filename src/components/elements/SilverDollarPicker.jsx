@@ -4,69 +4,66 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { Box } from '@mui/system';
 import { useAccount, useContractRead, useNetwork } from 'wagmi';
 import IERC721EnumerableAbi from '../../abi/IERC721Enumerable.json';
-import { ADDRESS_OUTLAWS_NFT } from '../../constants/addresses';
-import { LINK_OUTLAWS_MINT } from '../../constants/links';
-import { LOCATION_TOWN_SQUARE } from '../../constants/locations';
+import { ADDRESS_USTSD_NFT } from '../../constants/addresses';
+import { LINK_SILVER_DOLLARS_TRADING } from '../../constants/links';
+import { LOCATION_SILVER_STORE } from '../../constants/locations';
 import useAccountNfts from '../../hooks/useAccountNfts';
 import ButtonImageLink from '../styled/ButtonImageLink';
 import ConnectWallet from './ConnectWallet';
-import DialogApproveOutlaws from './DialogApproveOutlaws';
-import DialogConfirmOutlawAssignment from './DialogConfirmOutlawAssignment';
-import OutlawImage from './OutlawImage';
-import OutlawInfoDialog from './OutlawInfoDialog';
-import OutlawName from './OutlawName';
+import DialogApproveSilverDollars from './DialogApproveSilverDollars';
+import DialogConfirmSilverDollarsAssignment from './DialogConfirmSilverDollarsAssignment';
+import SilverDollarImage from './SilverDollarImage';
 
-const GetOutlawsButton = () => (
+const GetSilverDollars = () => (
   <ButtonImageLink
-    href={LINK_OUTLAWS_MINT}
-    img="./images/outlaws-button-icon.png"
+    href={LINK_SILVER_DOLLARS_TRADING}
+    img="./images/ustsd-logo.png"
     sx={{
       display: 'inline-block',
     }}
     text={
       <>
-        GIT YER OUTLAW NFTS ON
+        GIT YER SILVER DOLLAR NFTS ON
         <Typography variant="span" sx={{ color: '#22EE1D', display: 'block' }}>
-          OUTLAWS.CZ.CASH
+          NUMIS.CZ.CASH
         </Typography>
       </>
     }
   />
 );
 
-export default function OutlawPicker({
-  outlawIdsToAdd,
-  toggleOutlawSelectedToAdd,
-  outlawIdsToRemove,
-  toggleOutlawSelectedToRemove,
-  deselectOutlawsAll,
+export default function SilverDollarPicker({
+  ustsdIdsToAdd,
+  toggleUstsdSelectedToAdd,
+  ustsdIdsToRemove,
+  deselectUstsdAll,
   gangId,
 }) {
   const theme = useTheme();
   const { address, isConnecting, isDisconnected } = useAccount();
   const { chain, chains } = useNetwork();
 
-  const { accountNftIdArray: accountOutlawIds } =
-    useAccountNfts(ADDRESS_OUTLAWS_NFT);
-  const accountOutlawCount = accountOutlawIds?.length ?? 0;
+  const { accountNftIdArray: accountUstsdIds } =
+    useAccountNfts(ADDRESS_USTSD_NFT);
+  const accountUstsdCount = accountUstsdIds?.length ?? 0;
 
   const isCorrectChain = chain?.id == 56;
   const {
-    data: dataIsApprovedForAllOutlawsOnTownSquare,
-    isError: isErrorIsApprovedForAllOutlawsOnTownSquare,
-    isLoading: isLoadingIsApprovedForAllOutlawsOnTownSquare,
+    data: dataIsApprovedForAllUstsdsOnTownSquare,
+    isError: isErrorIsApprovedForAllUstsdsOnTownSquare,
+    isLoading: isLoadingIsApprovedForAllUstsdsOnTownSquare,
   } = useContractRead({
-    address: ADDRESS_OUTLAWS_NFT,
+    address: ADDRESS_USTSD_NFT,
     abi: IERC721EnumerableAbi,
     functionName: 'isApprovedForAll',
     watch: true,
-    args: [address, LOCATION_TOWN_SQUARE],
+    args: [address, LOCATION_SILVER_STORE],
     enabled: !!address,
   });
-  const isApprovedForAllOutlawsOnTownSquare =
-    !isLoadingIsApprovedForAllOutlawsOnTownSquare &&
-    !isErrorIsApprovedForAllOutlawsOnTownSquare
-      ? dataIsApprovedForAllOutlawsOnTownSquare
+  const isApprovedForAllUstsdsOnTownSquare =
+    !isLoadingIsApprovedForAllUstsdsOnTownSquare &&
+    !isErrorIsApprovedForAllUstsdsOnTownSquare
+      ? dataIsApprovedForAllUstsdsOnTownSquare
       : false;
 
   return (
@@ -77,7 +74,7 @@ export default function OutlawPicker({
             as="h3"
             sx={{ fontSize: { xs: '6vw', lg: '3.2em' }, color: '#6E1C1C' }}
           >
-            YOUR OUTLAWS
+            YOUR SILVER DOLLARS
           </Typography>
           <Typography
             as="p"
@@ -109,7 +106,7 @@ export default function OutlawPicker({
               color: 'black',
             }}
           >
-            CHOOSE YER
+            EQUIP YER
           </Typography>
           <Typography
             as="p"
@@ -119,7 +116,7 @@ export default function OutlawPicker({
               color: 'black',
             }}
           >
-            OUTLAW
+            SILVER DOLLARS
           </Typography>
         </Grid2>
         <Grid2
@@ -129,19 +126,17 @@ export default function OutlawPicker({
             alignSelf: 'center',
           }}
         >
-          {!!isApprovedForAllOutlawsOnTownSquare ? (
-            <DialogConfirmOutlawAssignment
+          {!!isApprovedForAllUstsdsOnTownSquare ? (
+            <DialogConfirmSilverDollarsAssignment
               {...{
-                outlawIdsToAdd,
-                toggleOutlawSelectedToAdd,
-                outlawIdsToRemove,
-                toggleOutlawSelectedToRemove,
-                deselectOutlawsAll,
+                ustsdIdsToAdd,
+                ustsdIdsToRemove,
+                deselectUstsdAll,
                 gangId,
               }}
             />
           ) : (
-            <DialogApproveOutlaws />
+            <DialogApproveSilverDollars />
           )}
         </Grid2>
         <Grid2
@@ -194,7 +189,7 @@ export default function OutlawPicker({
               />
             </Typography>
           )}
-          {!!address && !!isCorrectChain && accountOutlawCount == 0 && (
+          {!!address && !!isCorrectChain && accountUstsdCount == 0 && (
             <Typography
               as="h3"
               sx={{
@@ -206,15 +201,15 @@ export default function OutlawPicker({
               }}
             >
               YER WALLET GOT <br />
-              NO OUTLAWS! <br />
-              <GetOutlawsButton />
+              NO SILVER DOLLARS! <br />
+              <GetSilverDollars />
             </Typography>
           )}
         </Grid2>
-        {!!address && !!isCorrectChain && !(accountOutlawCount == 0) && (
+        {!!address && !!isCorrectChain && !(accountUstsdCount == 0) && (
           <>
-            {accountOutlawIds.map((nftId) => {
-              const isSelected = outlawIdsToAdd?.includes(
+            {accountUstsdIds.map((nftId) => {
+              const isSelected = ustsdIdsToAdd?.includes(
                 nftId?.toString() ?? ''
               );
               return (
@@ -230,11 +225,11 @@ export default function OutlawPicker({
                   >
                     <Button
                       onClick={() => {
-                        toggleOutlawSelectedToAdd(nftId?.toString());
+                        toggleUstsdSelectedToAdd(nftId?.toString());
                       }}
                       sx={{ margin: 0, padding: 0 }}
                     >
-                      <OutlawImage
+                      <SilverDollarImage
                         nftId={nftId?.toString()}
                         sx={{
                           border: 'solid blue',
@@ -267,57 +262,14 @@ export default function OutlawPicker({
                         }}
                       >
                         {isSelected ? 'CANCEL' : 'ADD'}
-                        <Typography
-                          as="span"
-                          sx={{
-                            fontSize: '0.5em',
-                            lineHeight: '0.75em',
-                            margin: 0,
-                            display: 'block',
-                          }}
-                        >
-                          <OutlawName nftId={nftId} />
-                        </Typography>
                       </Box>
                     </Button>
-                    <OutlawInfoDialog
-                      nftId={nftId}
-                      btn={
-                        <Button
-                          variant="text"
-                          className="equip-btn"
-                          sx={{
-                            position: 'absolute',
-                            backgroundColor: '#701c1c',
-                            borderRadius: '0.85em',
-                            color: 'white',
-                            margin: 0,
-                            right: '0.75em',
-                            top: '0.75em',
-                            fontSize: { xs: '1em', sm: '1.5em' },
-                            minWidth: '0',
-                            width: '1.7em',
-                            height: '1.7em',
-                            padding: 0,
-                            display: 'block',
-                            fontFamily: 'serif',
-                            textTransform: 'none',
-                            fontWeight: 'bold',
-                            '&:hover': {
-                              backgroundColor: '#080830',
-                            },
-                          }}
-                        >
-                          i
-                        </Button>
-                      }
-                    />
                   </Box>
                 </Grid2>
               );
             })}
             <Grid2 xs={12} fontSize="2em">
-              <GetOutlawsButton />
+              <GetSilverDollars />
             </Grid2>
           </>
         )}

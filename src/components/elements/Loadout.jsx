@@ -1,7 +1,9 @@
 import { Button, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import LocTownSquareAbi from '../../abi/LocTownSquare.json';
-import { ADDRESS_BANDIT, ADDRESS_TOWN_SQUARE } from '../../constants/addresses';
+import { ADDRESS_BANDIT } from '../../constants/addresses';
+import { LOCATION_TOWN_SQUARE } from '../../constants/locations';
+import { useGangLocationMulti } from '../../hooks/useGangLocation';
 import { useGangNameMulti } from '../../hooks/useGangName';
 import { useGangOwnedERC20Multi } from '../../hooks/useGangOwnedERC20';
 import { useGangOwnedOutlawIdsMulti } from '../../hooks/useGangOwnedOutlawIds';
@@ -24,6 +26,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
   const selectedGangId =
     accountGangIdArray?.[loadoutSelectedGangIndex]?.toString();
 
+  const locations = useGangLocationMulti(accountGangIdArray);
   const names = useGangNameMulti(accountGangIdArray);
   const gangBals = useGangOwnedERC20Multi(ADDRESS_BANDIT, accountGangIdArray);
   const { gangIdToOutlawIds } = useGangOwnedOutlawIdsMulti(accountGangIdArray);
@@ -219,7 +222,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                   lineHeight: '1em',
                 }}
               >
-                TOWN SQUARE
+                {locations[gangId].name}
               </Typography>
               <Typography
                 sx={{
@@ -250,7 +253,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
         ))}
         <DialogTransaction
           title="SPAWN NEW GANG"
-          address={ADDRESS_TOWN_SQUARE}
+          address={LOCATION_TOWN_SQUARE}
           abi={LocTownSquareAbi}
           functionName="spawnGang"
           btn={

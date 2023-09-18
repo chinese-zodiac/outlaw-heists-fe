@@ -1,18 +1,18 @@
 import { Button, Typography } from '@mui/material';
 import IERC721EnumerableAbi from '../../abi/IERC721Enumerable.json';
-import { ADDRESS_OUTLAWS_NFT } from '../../constants/addresses';
-import { LOCATION_TOWN_SQUARE } from '../../constants/locations';
+import { ADDRESS_USTSD_NFT } from '../../constants/addresses';
+import { LOCATION_SILVER_STORE } from '../../constants/locations';
 import DialogTransaction from '../styled/DialogTransaction';
 
-export default function DialogApproveOutlaws() {
+export default function DialogApproveSilverDollars() {
   return (
     <>
       <DialogTransaction
-        address={ADDRESS_OUTLAWS_NFT}
+        address={ADDRESS_USTSD_NFT}
         abi={IERC721EnumerableAbi}
         functionName="setApprovalForAll"
-        args={[LOCATION_TOWN_SQUARE, true]}
-        title="APPROVE OUTLAWS"
+        args={[LOCATION_SILVER_STORE, true]}
+        title="APPROVE SILVER DOLLARS"
         btn={
           <Button
             variant="text"
@@ -33,9 +33,9 @@ export default function DialogApproveOutlaws() {
         }
       >
         <Typography sx={{ fontSize: '1.25em', lineHeight: '1.25em' }}>
-          Approves the Town Square's Smart Contracts to transfer Outlaws from
-          your wallet to your Gang. Select YES to send the approve transaction
-          to your wallet.
+          Approves the Silver Stores's Smart Contracts to transfer USTSD Silver
+          Dollar NFTs from your wallet to your Gang. Select YES to send the
+          approve transaction to your wallet.
         </Typography>
       </DialogTransaction>
     </>

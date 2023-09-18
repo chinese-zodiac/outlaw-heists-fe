@@ -13,7 +13,7 @@ import { cloneElement, useState } from 'react';
 import { useAccount, useBalance, useContractRead } from 'wagmi';
 import IERC20Abi from '../../abi/IERC20.json';
 import LocTownSquareAbi from '../../abi/LocTownSquare.json';
-import { ADDRESS_TOWN_SQUARE } from '../../constants/addresses';
+import { LOCATION_TOWN_SQUARE } from '../../constants/locations';
 import useGangName from '../../hooks/useGangName';
 import useGangOwnedERC20 from '../../hooks/useGangOwnedERC20';
 import { bnToCompact } from '../../utils/bnToFixed';
@@ -47,7 +47,7 @@ export default function DialogEquipErc20({
     abi: IERC20Abi,
     functionName: 'allowance',
     watch: true,
-    args: [address, ADDRESS_TOWN_SQUARE],
+    args: [address, LOCATION_TOWN_SQUARE],
     enabled: !!address,
   });
 
@@ -344,7 +344,7 @@ export default function DialogEquipErc20({
               address={tokenAddress}
               abi={IERC20Abi}
               functionName="approve"
-              args={[ADDRESS_TOWN_SQUARE, ethers.constants.MaxUint256]}
+              args={[LOCATION_TOWN_SQUARE, ethers.constants.MaxUint256]}
             >
               <Typography
                 sx={{
@@ -399,7 +399,7 @@ export default function DialogEquipErc20({
                   </Typography>
                 </Button>
               }
-              address={ADDRESS_TOWN_SQUARE}
+              address={LOCATION_TOWN_SQUARE}
               abi={LocTownSquareAbi}
               functionName={isEquip ? 'depositBandits' : 'withdrawBandits'}
               args={[gangId, inputWad]}
