@@ -95,7 +95,7 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
               marginBottom: '1em',
             }}
           >
-            <Typography sx={{ fontSize: '1em' }}>MAP</Typography>
+            <Typography sx={{ fontSize: '2em' }}>MAP</Typography>
             <Typography sx={{ fontSize: '1.2em', textTransform: 'uppercase' }}>
               📍 Silver Store
             </Typography>
