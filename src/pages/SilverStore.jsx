@@ -56,8 +56,8 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
         css={{
           position: 'relative',
           backgroundColor: theme.palette.primary.dark,
-          backgroundImage: "url('./images/PAPERTEXTURE-SEAMLESS.png')",
-          backgroundSize: 'contain',
+          backgroundImage: "url('./images/PAPERTEXTURE.png')",
+          backgroundSize: '500px',
           paddingBottom: '50px',
         }}
       >
@@ -66,14 +66,8 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
           sx={{
             paddingTop: '0.75em',
           }}
+          backgroundImage={'./images/silverstore.png'}
         >
-          <Box
-            as="img"
-            src="./images/silverstore.png"
-            sx={{
-              maxWidth: '100%',
-            }}
-          />
           <SilverDollarPicker
             gangId={activeGangId?.toString()}
             toggleUstsdSelectedToAdd={toggleUstsdSelectedToAdd}

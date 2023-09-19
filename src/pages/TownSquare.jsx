@@ -106,7 +106,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
           position: 'relative',
           backgroundColor: theme.palette.primary.dark,
           backgroundImage: "url('./images/PAPERTEXTURE.png')",
-          backgroundSize: 'contain',
+          backgroundSize: '500px',
           paddingBottom: '50px',
         }}
       >
