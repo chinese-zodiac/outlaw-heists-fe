@@ -33,8 +33,12 @@ export default function ConnectWallet() {
                     paddingLeft: '1em',
                     paddingRight: '1em',
                     border: 'solid 1px white',
-                    marginLeft: '1em',
                     borderRadius: '0.9em',
+                    backgroundColor: '#701c1c',
+                    width: '7em',
+                    '&:hover': {
+                      backgroundColor: '#080830',
+                    },
                   }}
                 >
                   <Avatar
@@ -57,11 +61,17 @@ export default function ConnectWallet() {
                 <Button
                   onClick={web3ModalOpen}
                   sx={{
-                    width: '9em',
+                    width: '7em',
                     fontWeight: 'bold',
                     color: 'white',
                     WebkitTextStroke: '1px #472f21',
+                    borderRadius: '0.9em',
+                    border: 'solid 1px white',
                     fontSize: 28,
+                    backgroundColor: '#701c1c',
+                    '&:hover': {
+                      backgroundColor: '#080830',
+                    },
                   }}
                 >
                   Connect{' '}

@@ -15,8 +15,8 @@ function HeaderBar({}) {
       <AppBar
         position="static"
         sx={{
-          background:
-            'linear-gradient(180deg, rgba(0,107,213,1) 10%, rgba(0,211,192,1) 90%)',
+          backgroundImage: "url('./images/OUTLAWS_ON_RIDGE.png')",
+          backgroundSize: 'cover',
         }}
       >
         <Container maxWidth="xl">
@@ -39,14 +39,14 @@ function HeaderBar({}) {
                 }}
               />
             </Box>
-            <Box>
+            <Box sx={{ marginRight: '1em' }}>
               <Typography as="h1">
                 <Typography
                   as="span"
                   sx={{
                     fontSize: { xs: 48, md: 64 },
                     color: '#FF7900',
-                    WebkitTextStroke: '1px #7F2100',
+                    WebkitTextStroke: '2px black',
                   }}
                 >
                   BANDIT{' '}
@@ -56,7 +56,7 @@ function HeaderBar({}) {
                   sx={{
                     fontSize: { xs: 48, md: 64 },
                     color: '#FFF300',
-                    WebkitTextStroke: '1px #7F2100',
+                    WebkitTextStroke: '2px black',
                   }}
                 >
                   HEIST
@@ -64,59 +64,9 @@ function HeaderBar({}) {
               </Typography>
             </Box>
             <ConnectWallet />
+            <br />
           </Toolbar>
         </Container>
-        <Box sx={{ height: 32, position: 'relative', overflow: 'none' }}>
-          <Box
-            as="img"
-            src="./images/Vector 1.png"
-            sx={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              bottom: { xs: 0, md: '-1.25vw', lg: '-1.6vw', xl: '-1.8vw' },
-              width: '100%',
-            }}
-          />
-          <Box
-            as="img"
-            src="./images/BUILDING 2-1.png"
-            sx={{
-              position: 'absolute',
-              left: 5,
-              bottom: { xs: 3, md: '0.3vw', lg: '0.2vw' },
-              width: '20vw',
-              maxWidth: 100,
-            }}
-          />
-          <Box
-            as="img"
-            src="./images/CACTUS 1.png"
-            sx={{
-              position: 'absolute',
-              left: '22vw',
-              bottom: {
-                xs: 5,
-                sm: '2.2vw',
-                md: '0.8vw',
-                lg: '0.5vw',
-                xl: '0.25vw',
-              },
-              width: '7vw',
-              maxWidth: 30,
-            }}
-          />
-          <Box
-            as="img"
-            src="./images/horse-set.png"
-            sx={{
-              position: 'absolute',
-              right: '5vw',
-              bottom: { xs: 4, sm: '1.5vw', md: '0.4vw', lg: '0' },
-              width: 100,
-            }}
-          />
-        </Box>
       </AppBar>
     </>
   );
