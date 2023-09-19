@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react';
 import GangBar from '../components/elements/GangBar';
 import LocationTitle from '../components/elements/LocationTitle';
 import MoveButton from '../components/elements/MoveButton';
+import SilverDollarBarRemovable from '../components/elements/SilverDollarBarRemovable';
 import SilverDollarPicker from '../components/elements/SilverDollarPicker';
 import TgCommentBox from '../components/elements/TgCommentBox';
 import FooterArea from '../components/layouts/FooterArea';
@@ -80,6 +81,12 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
             toggleUstsdSelectedToRemove={toggleUstsdSelectedToRemove}
             ustsdIdsToRemove={ustsdIdsToRemove}
             deselectUstsdsAll={deselectUstsdAll}
+          />
+          <br />
+          <SilverDollarBarRemovable
+            gangId={activeGangId?.toString()}
+            ustsdIdsToRemove={ustsdIdsToRemove}
+            toggleUstsdSelectedToRemove={toggleUstsdSelectedToRemove}
           />
           <GangBar gangId={activeGangId} />
           <Box

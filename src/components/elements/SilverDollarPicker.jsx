@@ -213,7 +213,12 @@ export default function SilverDollarPicker({
                 nftId?.toString() ?? ''
               );
               return (
-                <Grid2 key={nftId} xs={4} md={3} sx={{ margin: '0em' }}>
+                <Grid2
+                  key={nftId?.toString()}
+                  xs={4}
+                  md={3}
+                  sx={{ margin: '0em' }}
+                >
                   <Box
                     sx={{
                       padding: '6px',

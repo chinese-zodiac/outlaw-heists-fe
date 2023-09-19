@@ -4,6 +4,7 @@ import { ADDRESS_BANDIT } from '../../constants/addresses';
 import useGangName from '../../hooks/useGangName';
 import useGangOwnedERC20 from '../../hooks/useGangOwnedERC20';
 import useGangOwnedOutlawIds from '../../hooks/useGangOwnedOutlawIds';
+import useGangOwnedSilverDollarIds from '../../hooks/useGangOwnedSilverDollarIds';
 import { bnToCompact } from '../../utils/bnToFixed';
 import OutlawImage from './OutlawImage';
 import OutlawInfoDialog from './OutlawInfoDialog';
@@ -117,6 +118,7 @@ const Outlaw = (nftId) => (
 export default function GangBar({ gangId }) {
   const name = useGangName(gangId ?? 0);
   const gangBal = useGangOwnedERC20(ADDRESS_BANDIT, gangId);
+  const { gangOwnedUstsdCount } = useGangOwnedSilverDollarIds(gangId);
   const { gangOwnedOutlawIds } = useGangOwnedOutlawIds(gangId);
   return (
     <>
@@ -147,8 +149,17 @@ export default function GangBar({ gangId }) {
           spacing={{ xs: 1, md: 2 }}
           sx={{ marginTop: '1em' }}
         >
-          <Typography sx={{ display: 'block', color: '#6E1C1C' }}>
-            GANG: {bnToCompact(gangBal, 18, 5)} BANDITS
+          <Typography sx={{ display: 'block', color: 'black' }}>
+            <Typography
+              as="span"
+              sx={{ color: '#6E1C1C', textTransform: 'uppercase' }}
+            >
+              {name} HOLDINGS:
+            </Typography>
+            <br />
+            {bnToCompact(gangBal, 18, 5)} BANDITS
+            <br />
+            {gangOwnedUstsdCount} USTSD
           </Typography>
         </Stack>
       </Box>

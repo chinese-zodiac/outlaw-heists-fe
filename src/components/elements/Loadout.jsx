@@ -7,6 +7,7 @@ import { useGangLocationMulti } from '../../hooks/useGangLocation';
 import { useGangNameMulti } from '../../hooks/useGangName';
 import { useGangOwnedERC20Multi } from '../../hooks/useGangOwnedERC20';
 import { useGangOwnedOutlawIdsMulti } from '../../hooks/useGangOwnedOutlawIds';
+import { useGangOwnedSilverDollarIdsMulti } from '../../hooks/useGangOwnedSilverDollarIds';
 import { useOutlawMetadataMulti } from '../../hooks/useOutlawMetadata';
 import useStore from '../../store/useStore';
 import { bnToCompact } from '../../utils/bnToFixed';
@@ -30,6 +31,8 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
   const names = useGangNameMulti(accountGangIdArray);
   const gangBals = useGangOwnedERC20Multi(ADDRESS_BANDIT, accountGangIdArray);
   const { gangIdToOutlawIds } = useGangOwnedOutlawIdsMulti(accountGangIdArray);
+  const { gangIdToUstsdIds } =
+    useGangOwnedSilverDollarIdsMulti(accountGangIdArray);
   const { metadataMulti } = useOutlawMetadataMulti(
     accountGangIdArray.map((gangId) => gangIdToOutlawIds[gangId])?.flat()
   );
@@ -238,7 +241,10 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                   lineHeight: '1em',
                 }}
               >
-                BOOST: {boosts[i].boostBp / 100}% ({boosts[i].boostType})
+                BOOST:{' '}
+                {(boosts[i].boostBp + gangIdToUstsdIds[gangId]?.length * 1000) /
+                  100}
+                % ({boosts[i].boostType})
               </Typography>
               <Typography
                 sx={{
@@ -247,6 +253,14 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                 }}
               >
                 BANDITS: {bnToCompact(gangBals[gangId], 18, 5)}
+              </Typography>
+              <Typography
+                sx={{
+                  color: 'black',
+                  lineHeight: '1em',
+                }}
+              >
+                USTSD: {gangIdToUstsdIds[gangId]?.length}
               </Typography>
             </Stack>
           </Box>
