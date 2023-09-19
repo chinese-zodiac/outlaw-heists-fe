@@ -161,6 +161,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
                 destinationName="Silver Store"
                 gangId={activeGangId?.toString()}
                 destinationAbout="At the Silver Store, you can equip and uneqip Silver Dollar NFTs from numis.cz.cash to your Gang. Each Silver Dollar NFT gives your Gang an additive 10% power boost, meaning your Gang will be 10% stronger for each Silver Dollar NFT it holds in both PvP and PvE."
+                isLocked={!activeGangId}
               >
                 Silver Store
               </MoveButton>
