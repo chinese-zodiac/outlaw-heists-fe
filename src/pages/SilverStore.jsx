@@ -56,7 +56,7 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
         css={{
           position: 'relative',
           backgroundColor: theme.palette.primary.dark,
-          backgroundImage: "url('./images/TEXTURE 1.png')",
+          backgroundImage: "url('./images/PAPERTEXTURE-SEAMLESS.png')",
           backgroundSize: 'contain',
           paddingBottom: '50px',
         }}
