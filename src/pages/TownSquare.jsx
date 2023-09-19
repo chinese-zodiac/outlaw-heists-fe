@@ -142,12 +142,13 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
             <Box
               sx={{
                 display: 'inline-block',
-                backgroundImage: "url('./images/PAPER1.png')",
+                backgroundImage: "url('./images/MAP-BG.png')",
                 backgroundSize: '100% 100%',
                 width: '12.5em',
                 textAlign: 'center',
                 color: 'black',
                 padding: '1em',
+                marginBottom: '1em',
               }}
             >
               <Typography sx={{ fontSize: '2em' }}>MAP</Typography>
