@@ -17,6 +17,7 @@ function HeaderBar({}) {
         sx={{
           backgroundImage: "url('./images/OUTLAWS_ON_RIDGE.png')",
           backgroundSize: 'cover',
+          backgroundPositionY: 'bottom',
         }}
       >
         <Container maxWidth="xl">
