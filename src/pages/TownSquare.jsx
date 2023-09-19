@@ -147,7 +147,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
                 width: '12.5em',
                 textAlign: 'center',
                 color: 'black',
-                padding: '1em',
+                padding: '3em',
                 marginBottom: '1em',
               }}
             >
