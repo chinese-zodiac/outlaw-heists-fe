@@ -144,6 +144,8 @@ export default function GangBarRemovable({
             textAlign: 'left',
             marginLeft: '2em',
             textTransform: 'uppercase',
+            color: 'white',
+            textShadow: '1px 1px 1px black',
           }}
         >
           {/* TODO: ADD EDIT GANG NAME 
@@ -214,7 +216,13 @@ export default function GangBarRemovable({
                 tokenSymbol={'BANDIT'}
               />
             ) : (
-              <Typography sx={{ fontSize: '1.2em' }}>
+              <Typography
+                sx={{
+                  fontSize: '1.2em',
+                  color: 'white',
+                  textShadow: '1px 1px 1px black',
+                }}
+              >
                 YOU AINT GOT NO GANG YET!
                 <br />
                 (1) Get Bandits BEP20 from cz.cash
@@ -224,10 +232,22 @@ export default function GangBarRemovable({
                 (3) Select and confirm your Outlaws
               </Typography>
             )}
-            <Typography sx={{ display: 'block', color: 'black' }}>
+            <Typography
+              sx={{
+                display: 'block',
+                color: 'white',
+                textShadow: '1px 1px 1px black',
+              }}
+            >
               WALLET: {bnToCompact(banditBal, 18, 5)} BANDITS
             </Typography>
-            <Typography sx={{ display: 'block', color: '#6E1C1C' }}>
+            <Typography
+              sx={{
+                display: 'block',
+                color: 'white',
+                textShadow: '1px 1px 1px black',
+              }}
+            >
               GANG: {bnToCompact(gangBal, 18, 5)} BANDITS
             </Typography>
           </Box>

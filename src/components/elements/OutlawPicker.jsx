@@ -165,6 +165,7 @@ export default function OutlawPicker({
                   fontSize: '2.5em',
                   lineHeight: '1em',
                   marginBottom: '5em',
+                  color: 'white',
                   textShadow: '1px 1px 2px black',
                 }}
               >
@@ -182,6 +183,7 @@ export default function OutlawPicker({
                 lineHeight: '1em',
                 marginTop: '1em',
                 marginBottom: '5em',
+                color: 'white',
                 textShadow: '1px 1px 2px black',
               }}
             >
@@ -202,7 +204,8 @@ export default function OutlawPicker({
                 lineHeight: '1em',
                 marginTop: '1em',
                 marginBottom: '5em',
-                textShadow: '1px 1px 1px black',
+                color: 'white',
+                textShadow: '1px 1px 2px black',
               }}
             >
               YER WALLET GOT <br />

@@ -64,7 +64,7 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
         <LocationTitle>SILVER STORE</LocationTitle>
         <LocationContentArea
           sx={{
-            paddingTop: { xs: '3em', sm: '3.75em', md: '8em' },
+            paddingTop: '0.75em',
           }}
         >
           <Box
@@ -92,7 +92,7 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
           <Box
             sx={{
               display: 'inline-block',
-              backgroundImage: "url('./images/paper 1.png')",
+              backgroundImage: "url('./images/PAPER1.png')",
               backgroundSize: '100% 100%',
               width: '12.5em',
               textAlign: 'center',

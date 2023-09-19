@@ -72,7 +72,7 @@ export default function SilverDollarPicker({
         <Grid2 xs={6} sx={{ overflow: 'hidden', alignSelf: 'center' }}>
           <Typography
             as="h3"
-            sx={{ fontSize: { xs: '6vw', lg: '3.2em' }, color: '#6E1C1C' }}
+            sx={{ fontSize: { xs: '6vw', lg: '3.2em' }, color: 'white' }}
           >
             YOUR SILVER DOLLARS
           </Typography>
@@ -103,7 +103,7 @@ export default function SilverDollarPicker({
             sx={{
               fontSize: { xs: '4.2vw', lg: '2.2em' },
               lineHeight: '0.9em',
-              color: 'black',
+              color: 'white',
             }}
           >
             EQUIP YER
@@ -113,7 +113,7 @@ export default function SilverDollarPicker({
             sx={{
               fontSize: { xs: '6vw', lg: '3.2em' },
               lineHeight: '0.9em',
-              color: 'black',
+              color: 'white',
             }}
           >
             SILVER DOLLARS
@@ -146,49 +146,6 @@ export default function SilverDollarPicker({
             alignSelf: 'center',
           }}
         >
-          {!address && (
-            <>
-              <Box
-                as="img"
-                src="./images/SHOCKED COWBOY.png"
-                sx={{ maxWidth: '100%', width: '120px', position: 'relative' }}
-              />
-
-              <Typography
-                as="h3"
-                sx={{
-                  fontSize: '2.5em',
-                  lineHeight: '1em',
-                  marginBottom: '5em',
-                  textShadow: '1px 1px 2px black',
-                }}
-              >
-                YER WALLET <br />
-                AINT CONNECTED!
-                <ConnectWallet />
-              </Typography>
-            </>
-          )}
-          {!!address && !isCorrectChain && (
-            <Typography
-              as="h3"
-              sx={{
-                fontSize: '2.5em',
-                lineHeight: '1em',
-                marginTop: '1em',
-                marginBottom: '5em',
-                textShadow: '1px 1px 2px black',
-              }}
-            >
-              WRONG CHAIN BOSS! <br />
-              SWITCH TO BSC
-              <Box
-                as="img"
-                src="./images/ROAD.png"
-                sx={{ maxWidth: '100%', position: 'relative' }}
-              />
-            </Typography>
-          )}
           {!!address && !!isCorrectChain && accountUstsdCount == 0 && (
             <Typography
               as="h3"
@@ -197,6 +154,7 @@ export default function SilverDollarPicker({
                 lineHeight: '1em',
                 marginTop: '1em',
                 marginBottom: '5em',
+                color: 'white',
                 textShadow: '1px 1px 1px black',
               }}
             >

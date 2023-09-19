@@ -105,13 +105,14 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
         css={{
           position: 'relative',
           backgroundColor: theme.palette.primary.dark,
-          backgroundImage: "url('./images/TEXTURE 1.png')",
+          backgroundImage: "url('./images/PAPERTEXTURE.png')",
           backgroundSize: 'contain',
           paddingBottom: '50px',
         }}
       >
         <LocationTitle>TOWN SQUARE</LocationTitle>
         <LocationContentArea
+          backgroundImage="./images/BACKGROUND.png"
           sx={{
             paddingTop: { xs: '3em', sm: '3.75em', md: '0em' },
           }}
@@ -141,7 +142,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
             <Box
               sx={{
                 display: 'inline-block',
-                backgroundImage: "url('./images/paper 1.png')",
+                backgroundImage: "url('./images/PAPER1.png')",
                 backgroundSize: '100% 100%',
                 width: '12.5em',
                 textAlign: 'center',
