@@ -9,7 +9,6 @@ import { LINK_SILVER_DOLLARS_TRADING } from '../../constants/links';
 import { LOCATION_SILVER_STORE } from '../../constants/locations';
 import useAccountNfts from '../../hooks/useAccountNfts';
 import ButtonImageLink from '../styled/ButtonImageLink';
-import ConnectWallet from './ConnectWallet';
 import DialogApproveSilverDollars from './DialogApproveSilverDollars';
 import DialogConfirmSilverDollarsAssignment from './DialogConfirmSilverDollarsAssignment';
 import SilverDollarImage from './SilverDollarImage';
@@ -72,7 +71,11 @@ export default function SilverDollarPicker({
         <Grid2 xs={6} sx={{ overflow: 'hidden', alignSelf: 'center' }}>
           <Typography
             as="h3"
-            sx={{ fontSize: { xs: '6vw', lg: '3.2em' }, color: 'white' }}
+            sx={{
+              fontSize: { xs: '6vw', lg: '3.2em' },
+              color: 'white',
+              textShadow: '1px 1px 1px black',
+            }}
           >
             YOUR SILVER DOLLARS
           </Typography>
@@ -104,6 +107,7 @@ export default function SilverDollarPicker({
               fontSize: { xs: '4.2vw', lg: '2.2em' },
               lineHeight: '0.9em',
               color: 'white',
+              textShadow: '1px 1px 1px black',
             }}
           >
             EQUIP YER
@@ -114,6 +118,7 @@ export default function SilverDollarPicker({
               fontSize: { xs: '6vw', lg: '3.2em' },
               lineHeight: '0.9em',
               color: 'white',
+              textShadow: '1px 1px 1px black',
             }}
           >
             SILVER DOLLARS

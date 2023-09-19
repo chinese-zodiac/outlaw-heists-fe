@@ -129,6 +129,7 @@ export default function GangBar({ gangId }) {
             marginLeft: '2em',
             textTransform: 'uppercase',
             color: 'white',
+            textShadow: '1px 1px 1px black',
           }}
         >
           {gangId == undefined ? <>NO GANG</> : <>{name}</>}
@@ -150,7 +151,13 @@ export default function GangBar({ gangId }) {
           spacing={{ xs: 1, md: 2 }}
           sx={{ marginTop: '1em' }}
         >
-          <Typography sx={{ display: 'block', color: 'white' }}>
+          <Typography
+            sx={{
+              display: 'block',
+              color: 'white',
+              textShadow: '1px 1px 1px black',
+            }}
+          >
             <Typography
               as="span"
               sx={{
