@@ -12,6 +12,7 @@ import FooterArea from '../components/layouts/FooterArea';
 import HeaderBar from '../components/layouts/HeaderBar';
 import LocationContentArea from '../components/layouts/LocationContentArea';
 import StatsArea from '../components/layouts/StatsArea';
+import Map from '../components/styled/Map';
 import { LOCATION_TOWN_SQUARE } from '../constants/locations';
 
 export default function SilverStore({ accountGangIdArray, activeGangId }) {
@@ -56,8 +57,8 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
         css={{
           position: 'relative',
           backgroundColor: theme.palette.primary.dark,
-          backgroundImage: "url('./images/PAPERTEXTURE.png')",
-          backgroundSize: '500px',
+          backgroundImage: "url('./images/WOODTEXTURE-SEAMLESS.svg')",
+          backgroundSize: '512px',
           paddingBottom: '50px',
         }}
       >
@@ -66,7 +67,7 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
           sx={{
             paddingTop: '0.75em',
           }}
-          backgroundImage={'./images/silverstore.png'}
+          backgroundImage={'./images/BACKGROUND-SILVERSTORE.svg'}
         >
           <SilverDollarPicker
             gangId={activeGangId?.toString()}
@@ -83,18 +84,7 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
             toggleUstsdSelectedToRemove={toggleUstsdSelectedToRemove}
           />
           <GangBar gangId={activeGangId} />
-          <Box
-            sx={{
-              display: 'inline-block',
-              backgroundImage: "url('./images/MAP-BG.png')",
-              backgroundSize: '100% 100%',
-              width: '12.5em',
-              textAlign: 'center',
-              color: 'black',
-              padding: '3em',
-              marginBottom: '1em',
-            }}
-          >
+          <Map>
             <Typography sx={{ fontSize: '2em' }}>MAP</Typography>
             <Typography sx={{ fontSize: '1.2em', textTransform: 'uppercase' }}>
               📍 Silver Store
@@ -109,7 +99,7 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
               Town Square
             </MoveButton>
             <MoveButton isLocked={true}>Red Canyons</MoveButton>
-          </Box>
+          </Map>
         </LocationContentArea>
         <StatsArea {...{ accountGangIdArray }} />
         <TgCommentBox

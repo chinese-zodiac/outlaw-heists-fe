@@ -15,6 +15,7 @@ import HeaderBar from '../components/layouts/HeaderBar';
 import LocationContentArea from '../components/layouts/LocationContentArea';
 import StatsArea from '../components/layouts/StatsArea';
 import DialogError from '../components/styled/DialogError';
+import Map from '../components/styled/Map';
 import { ADDRESS_BANDIT } from '../constants/addresses';
 import { LOCATION_SILVER_STORE } from '../constants/locations';
 
@@ -105,14 +106,14 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
         css={{
           position: 'relative',
           backgroundColor: theme.palette.primary.dark,
-          backgroundImage: "url('./images/PAPERTEXTURE.png')",
-          backgroundSize: '500px',
+          backgroundImage: "url('./images/WOODTEXTURE-SEAMLESS.svg')",
+          backgroundSize: '512px',
           paddingBottom: '50px',
         }}
       >
         <LocationTitle>TOWN SQUARE</LocationTitle>
         <LocationContentArea
-          backgroundImage="./images/BACKGROUND.png"
+          backgroundImage="./images/BACKGROUND.svg"
           sx={{
             paddingTop: { xs: '3em', sm: '3.75em', md: '0em' },
           }}
@@ -139,18 +140,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
               outlawIdsToRemove={outlawIdsToRemove}
               toggleOutlawSelectedToRemove={toggleOutlawSelectedToRemove}
             />
-            <Box
-              sx={{
-                display: 'inline-block',
-                backgroundImage: "url('./images/MAP-BG.png')",
-                backgroundSize: '100% 100%',
-                width: '12.5em',
-                textAlign: 'center',
-                color: 'black',
-                padding: '3em',
-                marginBottom: '1em',
-              }}
-            >
+            <Map>
               <Typography sx={{ fontSize: '2em' }}>MAP</Typography>
               <Typography
                 sx={{ fontSize: '1.2em', textTransform: 'uppercase' }}
@@ -168,7 +158,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
                 Silver Store
               </MoveButton>
               <MoveButton isLocked={true}>Red Canyons</MoveButton>
-            </Box>
+            </Map>
           </Box>
         </LocationContentArea>
         <StatsArea {...{ accountGangIdArray, deselectOutlawsAll }} />

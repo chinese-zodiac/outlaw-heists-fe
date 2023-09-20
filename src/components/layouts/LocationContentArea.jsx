@@ -9,8 +9,7 @@ export default function LocationContentArea({ sx, children, backgroundImage }) {
     <>
       <Box
         sx={{
-          backgroundImage: "url('./images/WOODTEXTURE-SEAMLESS.png')",
-          backgroundSize: '512px',
+          background: 'transparent',
         }}
       >
         <Box
