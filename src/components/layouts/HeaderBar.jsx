@@ -15,9 +15,10 @@ function HeaderBar({}) {
       <AppBar
         position="static"
         sx={{
-          backgroundImage: "url('./images/OUTLAWS_ON_RIDGE.png')",
+          backgroundImage: "url('./images/OUTLAWS_ON_RIDGE.svg')",
           backgroundSize: 'cover',
           backgroundPositionY: 'bottom',
+          backgroundPositionX:'center'
         }}
       >
         <Container maxWidth="xl">
