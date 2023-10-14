@@ -29,12 +29,12 @@ export default function useAccountNfts(nftAddress) {
         isError: accountNftIdArrayIsError,
         isLoading: accountNftIdArrayIsLoading,
     } = useContractReads({
-        contracts: [...new Array(nftCount)].map((val, i) => ({
+        contracts: nftCount > 0 ? [...new Array(nftCount)].map((val, i) => ({
             abi: IERC721Enumerable,
             address: nftAddress,
             functionName: 'tokenOfOwnerByIndex',
             args: [address, i],
-        })),
+        })) : [],
         watch: true,
         enabled: !!address && nftCount > 0
     });
