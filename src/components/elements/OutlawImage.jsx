@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 import useOutlawMetadata from '../../hooks/useOutlawMetadata';
-import { getIpfsUrl } from '../../utils/getIpfsJson';
+import IpfsImg from './IpfsImg';
 
 export default function OutlawImage({ nftId, sx }) {
   const { metadata } = useOutlawMetadata(nftId);
@@ -14,11 +14,7 @@ export default function OutlawImage({ nftId, sx }) {
         </Box>
       )}
       {!!metadata && !!metadata?.image && (
-        <Box
-          as="img"
-          src={getIpfsUrl(metadata.image)}
-          sx={{ width: '100%', ...sx }}
-        />
+        <IpfsImg ipfsCid={metadata?.image} sx={{ width: '100%', ...sx }} />
       )}
     </>
   );

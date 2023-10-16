@@ -2,8 +2,8 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { OUTLAW_PERSONALITIES_NAMES } from '../../constants/textLoopups';
 import useOutlawMetadata from '../../hooks/useOutlawMetadata';
-import { getIpfsUrl } from '../../utils/getIpfsJson';
 import DialogInfo from '../styled/DialogInfo';
+import IpfsImg from './IpfsImg';
 
 export default function OutlawInfoDialog({ nftId, btn, sx }) {
   const { metadata } = useOutlawMetadata(nftId);
@@ -20,11 +20,7 @@ export default function OutlawInfoDialog({ nftId, btn, sx }) {
         )}
         {!!metadata && (
           <>
-            <Box
-              as="img"
-              src={getIpfsUrl(metadata?.image)}
-              sx={{ width: '100%', ...sx }}
-            />
+            <IpfsImg ipfsCid={metadata?.image} sx={{ width: '100%', ...sx }} />
             <Typography
               as="h3"
               sx={{ fontSize: '2em', lineHeight: '1em', color: '#701C1C' }}

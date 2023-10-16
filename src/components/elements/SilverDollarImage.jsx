@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 import useSilverDollarMetadata from '../../hooks/useSilverDollarMetadata';
-import { getIpfsUrl } from '../../utils/getIpfsJson';
+import IpfsImg from './IpfsImg';
 
 export default function SilverDollarImage({ nftId, sx }) {
   const { metadata } = useSilverDollarMetadata(nftId);
@@ -14,11 +14,7 @@ export default function SilverDollarImage({ nftId, sx }) {
         </Box>
       )}
       {!!metadata && !!metadata?.image && (
-        <Box
-          as="img"
-          src={getIpfsUrl(metadata.image)}
-          sx={{ width: '100%', ...sx }}
-        />
+        <IpfsImg ipfsCid={metadata?.image} sx={{ width: '100%', ...sx }} />
       )}
     </>
   );

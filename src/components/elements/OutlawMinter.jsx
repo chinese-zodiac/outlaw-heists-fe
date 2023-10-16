@@ -19,7 +19,7 @@ import {
 import { OUTLAW_PERSONALITIES } from '../../constants/textLoopups';
 import useCountdown from '../../hooks/useCountdown';
 import useOutlawMetadata from '../../hooks/useOutlawMetadata';
-import { getIpfsUrl } from '../../utils/getIpfsJson';
+import IpfsImg from './IpfsImg';
 import TxStatus from './TxStatus';
 
 const lookup = ['Bottle', 'Casino', 'Gun', 'Horse', 'Saloon'];
@@ -114,9 +114,8 @@ export default function OutlawMinter({ nftId }) {
         }}
       >
         {!!metadata && !!metadata?.image && (
-          <Box
-            as="img"
-            src={getIpfsUrl(metadata.image)}
+          <IpfsImg
+            ipfsCid={metadata.image}
             sx={{
               width: '46%',
               margin: '2%',
