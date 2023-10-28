@@ -114,6 +114,8 @@ export default function FooterArea({ sx }) {
             <Grid2 xs={12}>
               <p css={{ fontSize: 14, fontWeight: 400 }}>
                 © 2023 CZodiac. All rights reserved
+                <br />
+                v0.0.1
               </p>
             </Grid2>
           </Grid2>

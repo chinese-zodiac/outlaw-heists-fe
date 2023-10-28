@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { Typography } from '@mui/material';
 
-export default function LocationTitle({ children }) {
+export default function LocationTitle({ children, sx }) {
   const theme = useTheme();
 
   return (
@@ -13,6 +13,7 @@ export default function LocationTitle({ children }) {
           fontSize: 48,
           paddingTop: 1,
           marginTop: 0,
+          ...sx,
         }}
       >
         {children}

@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
-import { ADDRESS_BANDIT } from '../../constants/addresses';
+import { ADDRESS_BANDIT, ADDRESS_GANGS } from '../../constants/addresses';
 import useGangName from '../../hooks/useGangName';
 import useGangOwnedERC20 from '../../hooks/useGangOwnedERC20';
 import useGangOwnedOutlawIds from '../../hooks/useGangOwnedOutlawIds';
@@ -130,9 +130,26 @@ export default function GangBar({ gangId }) {
             textTransform: 'uppercase',
             color: 'white',
             textShadow: '1px 1px 1px black',
+            fontSize: '1.25em',
+            lineHeight: '1em',
           }}
         >
           {gangId == undefined ? <>NO GANG</> : <>{name}</>}
+          <Typography
+            as="a"
+            href={`https://bscscan.com/nft/${ADDRESS_GANGS}/${gangId?.toString()}`}
+            target="_blank"
+            sx={{
+              textDecoration: 'underline',
+              color: 'white',
+              cursor: 'pointer',
+              marginLeft: '1em',
+              whiteSpace: 'nowrap',
+              fontSize: '0.7em',
+            }}
+          >
+            GangID: {gangId?.toString()}
+          </Typography>
         </Typography>
         <Stack
           direction="row"

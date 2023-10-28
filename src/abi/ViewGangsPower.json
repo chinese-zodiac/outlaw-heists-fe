@@ -1,0 +1,109 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract LocationController",
+        "name": "_locationController",
+        "type": "address"
+      },
+      {
+        "internalType": "contract Gangs",
+        "name": "_gangs",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC20",
+        "name": "_bandits",
+        "type": "address"
+      },
+      {
+        "internalType": "contract EntityStoreERC20",
+        "name": "_entityStoreERC20",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "bandits",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "entityStoreERC20",
+    "outputs": [
+      {
+        "internalType": "contract EntityStoreERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gangs",
+    "outputs": [
+      {
+        "internalType": "contract Gangs",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "locationController",
+    "outputs": [
+      {
+        "internalType": "contract LocationController",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract LocTemplateResource",
+        "name": "location",
+        "type": "address"
+      }
+    ],
+    "name": "viewOnly_localGangsPower",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "gangIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "gangBandits",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "gangPowers",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -17,7 +17,13 @@ import StatsArea from '../components/layouts/StatsArea';
 import DialogError from '../components/styled/DialogError';
 import Map from '../components/styled/Map';
 import { ADDRESS_BANDIT } from '../constants/addresses';
-import { LOCATION_SILVER_STORE } from '../constants/locations';
+import { LOCATION_ABOUTS } from '../constants/locationAbouts';
+import { LOCATION_CHATLINKS } from '../constants/locationChatlinks';
+import {
+  LOCATION_RED_RUSTLER_RENDEVOUS,
+  LOCATION_SILVER_STORE,
+  LOCATION_TOWN_SQUARE,
+} from '../constants/locations';
 
 const banditContract = {
   address: ADDRESS_BANDIT,
@@ -152,18 +158,30 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
                 destinationAddress={LOCATION_SILVER_STORE}
                 destinationName="Silver Store"
                 gangId={activeGangId?.toString()}
-                destinationAbout="At the Silver Store, you can equip and uneqip Silver Dollar NFTs from numis.cz.cash to your Gang. Each Silver Dollar NFT gives your Gang an additive 10% power boost, meaning your Gang will be 10% stronger for each Silver Dollar NFT it holds in both PvP and PvE."
+                destinationAbout={LOCATION_ABOUTS[LOCATION_TOWN_SQUARE]}
                 isLocked={!activeGangId}
               >
                 Silver Store
               </MoveButton>
-              <MoveButton isLocked={true}>Red Canyons</MoveButton>
+              <MoveButton
+                sx={{ marginBottom: '0.4em' }}
+                destinationAddress={LOCATION_RED_RUSTLER_RENDEVOUS}
+                destinationName="Red Rustler Rendevous"
+                gangId={activeGangId?.toString()}
+                gas={400000}
+                destinationAbout={
+                  LOCATION_ABOUTS[LOCATION_RED_RUSTLER_RENDEVOUS]
+                }
+                isLocked={!activeGangId}
+              >
+                Red Canyons
+              </MoveButton>
             </Map>
           </Box>
         </LocationContentArea>
         <StatsArea {...{ accountGangIdArray, deselectOutlawsAll }} />
         <TgCommentBox
-          dataTelegramDiscussion="banditlsdt/3988"
+          dataTelegramDiscussion={LOCATION_CHATLINKS[LOCATION_TOWN_SQUARE]}
           sx={{
             maxWidth: '960px',
             marginLeft: 'auto',

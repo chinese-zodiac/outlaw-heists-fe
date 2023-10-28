@@ -13,7 +13,12 @@ import HeaderBar from '../components/layouts/HeaderBar';
 import LocationContentArea from '../components/layouts/LocationContentArea';
 import StatsArea from '../components/layouts/StatsArea';
 import Map from '../components/styled/Map';
-import { LOCATION_TOWN_SQUARE } from '../constants/locations';
+import { LOCATION_ABOUTS } from '../constants/locationAbouts';
+import { LOCATION_CHATLINKS } from '../constants/locationChatlinks';
+import {
+  LOCATION_SILVER_STORE,
+  LOCATION_TOWN_SQUARE,
+} from '../constants/locations';
 
 export default function SilverStore({ accountGangIdArray, activeGangId }) {
   const theme = useTheme();
@@ -94,16 +99,15 @@ export default function SilverStore({ accountGangIdArray, activeGangId }) {
               destinationAddress={LOCATION_TOWN_SQUARE}
               destinationName="TOWN SQUARE"
               gangId={activeGangId?.toString()}
-              destinationAbout="Meet up with your Outlaws and Bandits in the Town Square. Equip and uneqip your Outlaws and Bandits with your Wallet and Gang."
+              destinationAbout={LOCATION_ABOUTS[LOCATION_TOWN_SQUARE]}
             >
               Town Square
             </MoveButton>
-            <MoveButton isLocked={true}>Red Canyons</MoveButton>
           </Map>
         </LocationContentArea>
         <StatsArea {...{ accountGangIdArray }} />
         <TgCommentBox
-          dataTelegramDiscussion="banditlsdt/4402"
+          dataTelegramDiscussion={LOCATION_CHATLINKS[LOCATION_SILVER_STORE]}
           sx={{
             maxWidth: '960px',
             marginLeft: 'auto',

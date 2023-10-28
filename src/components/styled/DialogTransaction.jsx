@@ -2,6 +2,7 @@ import { Button, Dialog, DialogContent, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import * as React from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { useDebounce } from 'usehooks-ts';
 import { useContractWrite, usePrepareContractWrite } from 'wagmi';
 import DialogConfirm from './DialogConfirm';
 
@@ -15,15 +16,26 @@ export default function DialogTransaction({
   functionName,
   args,
   onSuccess,
+  value,
+  gas,
 }) {
   const [open, setOpen] = React.useState(false);
   const [openTxStatus, setOpenTxStatus] = React.useState(false);
 
+  const debouncedAddress = useDebounce(address);
+  const debouncedFunctionName = useDebounce(functionName);
+  const debouncedArgs = useDebounce(args);
+  const debouncedValue = useDebounce(value);
+  const debouncedGas = useDebounce(gas);
   const { config } = usePrepareContractWrite({
-    address,
     abi,
-    functionName,
-    args,
+    address: debouncedAddress,
+    functionName: debouncedFunctionName,
+    args: debouncedArgs,
+    overrides: {
+      value: debouncedValue,
+      gasLimit: debouncedGas,
+    },
   });
   const { data, error, isError, isLoading, isSuccess, write } =
     useContractWrite({ ...config, onSuccess });
@@ -71,7 +83,7 @@ export default function DialogTransaction({
         >
           {title}
         </Typography>
-        {children}
+        <Typography sx={{ lineHeight: '1.2em' }}>{children}</Typography>
       </DialogConfirm>
       <Dialog onClose={handleClose} open={openTxStatus} sx={sx}>
         <DialogContent

@@ -1,0 +1,19 @@
+import * as Location from "./locations";
+export const LOCATION_DESTINATIONS = {
+    [Location.LOCATION_RED_RUSTLER_RENDEVOUS]: [
+        Location.LOCATION_TOWN_SQUARE,
+        Location.LOCATION_RED_ROCK_ROOST,
+        Location.LOCATION_REDSKIN_SACRED_POWWOW],
+    [Location.LOCATION_RED_ROCK_ROOST]: [
+        Location.LOCATION_RED_RUSTLER_RENDEVOUS,
+        Location.LOCATION_RED_RIVER_RANCH],
+    [Location.LOCATION_RED_RIVER_RANCH]: [
+        Location.LOCATION_RED_ROCK_ROOST,
+        Location.LOCATION_RED_CANYON_PASS],
+    [Location.LOCATION_REDSKIN_SACRED_POWWOW]: [
+        Location.LOCATION_RED_RUSTLER_RENDEVOUS,
+        Location.LOCATION_RED_CANYON_PASS],
+    [Location.LOCATION_RED_CANYON_PASS]: [
+        Location.LOCATION_REDSKIN_SACRED_POWWOW,
+        Location.LOCATION_RED_RIVER_RANCH],
+}

@@ -72,19 +72,19 @@ function EtherTextField({
     if (!!min && newValue.lt(min)) {
       setPrevValue(min.toString());
       setInputValue(formatUnits(min, decimals));
-      onChange(BigNumber.from(min.toString()));
+      onChange(BigNumber.from(min?.toString() ?? 0));
       return;
     }
 
     if (!!max && newValue.gt(max)) {
       setPrevValue(max.toString());
       setInputValue(formatUnits(max, decimals));
-      onChange(BigNumber.from(max.toString()));
+      onChange(BigNumber.from(max?.toString() ?? 0));
       return;
     }
     setPrevValue(newValue.toString());
     setInputValue(targetValue);
-    onChange(BigNumber.from(newValue.toString()));
+    onChange(BigNumber.from(newValue?.toString() ?? 0));
   };
 
   const inputProps = {

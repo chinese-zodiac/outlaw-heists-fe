@@ -85,6 +85,7 @@ export default function SilverDollarBarRemovable({
           direction="row"
           justifyContent="center"
           spacing={{ xs: 1, md: 2 }}
+          sx={{ flexWrap: 'wrap' }}
         >
           {gangOwnedUstsdIds.map((id) =>
             UstsdRemovable(

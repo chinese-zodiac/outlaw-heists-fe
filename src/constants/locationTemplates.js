@@ -1,0 +1,8 @@
+import * as Location from "./locations";
+export const LOCATION_TEMPLATES = {
+    [Location.LOCATION_RED_RUSTLER_RENDEVOUS]: "RESOURCE",
+    [Location.LOCATION_RED_ROCK_ROOST]: "RESOURCE",
+    [Location.LOCATION_RED_RIVER_RANCH]: "RESOURCE",
+    [Location.LOCATION_REDSKIN_SACRED_POWWOW]: "RESOURCE",
+    [Location.LOCATION_RED_CANYON_PASS]: "RESOURCE",
+}
