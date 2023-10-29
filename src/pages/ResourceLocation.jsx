@@ -507,7 +507,8 @@ export default function ResourceLocation({
                         </>
                       )}
                       {!isGangWorking &&
-                        !gangPowerInfo?.id.eq(activeGangId ?? 0) && (
+                        !gangPowerInfo?.id.eq(activeGangId ?? 0) &&
+                        !gangPowerInfo?.power.eq(0) && (
                           <>
                             <Typography
                               sx={{ height: '2.05em', marginTop: '0.4em' }}
@@ -528,7 +529,8 @@ export default function ResourceLocation({
                         )}
                       {!gangLastAttack?.eq(0) &&
                         !gangPowerInfo?.id.eq(gangAttackTarget ?? 0) &&
-                        !gangPowerInfo?.id.eq(activeGangId ?? 0) && (
+                        !gangPowerInfo?.id.eq(activeGangId ?? 0) &&
+                        !gangPowerInfo?.power.eq(0) && (
                           <>
                             <Typography
                               sx={{ height: '2.05em', marginTop: '0.4em' }}
@@ -541,7 +543,8 @@ export default function ResourceLocation({
                         gangAttackCooldown.gt(0) &&
                         gangAttackCooldown.gt(currentEpoch ?? 0) &&
                         gangLastAttack?.eq(0) &&
-                        !gangPowerInfo?.id.eq(activeGangId ?? 0) && (
+                        !gangPowerInfo?.id.eq(activeGangId ?? 0) &&
+                        !gangPowerInfo?.power.eq(0) && (
                           <>
                             <Typography
                               sx={{ height: '2.05em', marginTop: '0.4em' }}
