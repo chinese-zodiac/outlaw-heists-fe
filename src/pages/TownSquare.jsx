@@ -115,6 +115,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
           backgroundImage: "url('./images/WOODTEXTURE-SEAMLESS.svg')",
           backgroundSize: '512px',
           paddingBottom: '50px',
+          color: 'white',
         }}
       >
         <LocationTitle>TOWN SQUARE</LocationTitle>

@@ -104,7 +104,6 @@ export default function ResourceLocation({
     gangLastAttack?.add(30) ?? 0,
     'READY'
   );
-
   return (
     <>
       <HeaderBar />
@@ -115,11 +114,25 @@ export default function ResourceLocation({
           backgroundImage: "url('./images/WOODTEXTURE-SEAMLESS.svg')",
           backgroundSize: '512px',
           paddingBottom: '50px',
+          color: 'white',
         }}
       >
         <LocationTitle sx={{ marginBottom: '0em', lineHeight: '1em' }}>
           {locationName}
         </LocationTitle>
+        <Typography
+          sx={{
+            color: 'black',
+            paddingLeft: '2em',
+            paddingRight: '2em',
+            maxWidth: '720px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            lineHeight: '1em',
+          }}
+        >
+          {LOCATION_ABOUTS[resourceLocationAddress]}
+        </Typography>
         <Typography
           as="a"
           href={`https://bscscan.com/address/${resourceLocationAddress}`}
