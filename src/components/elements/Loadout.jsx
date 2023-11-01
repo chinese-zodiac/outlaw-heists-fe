@@ -233,14 +233,6 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                   lineHeight: '1em',
                 }}
               >
-                0💪 0🧠 0🎯
-              </Typography>
-              <Typography
-                sx={{
-                  color: 'black',
-                  lineHeight: '1em',
-                }}
-              >
                 BOOST:{' '}
                 {(boosts[i].boostBp + gangIdToUstsdIds[gangId]?.length * 1000) /
                   100}

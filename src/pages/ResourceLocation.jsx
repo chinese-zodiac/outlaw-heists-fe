@@ -5,6 +5,7 @@ import { parseEther } from 'ethers/lib/utils.js';
 import { useAccount, useContractRead } from 'wagmi';
 import LocTemplateResourceAbi from '../abi/LocTemplateResource.json';
 import GangBar from '../components/elements/GangBar';
+import GangInfoDialog from '../components/elements/GangInfoDialog';
 import LocationTitle from '../components/elements/LocationTitle';
 import MoveButton from '../components/elements/MoveButton';
 import PrepareMoveFixedDestinationButton from '../components/elements/PrepareMoveFixedDestinationButton';
@@ -364,9 +365,54 @@ export default function ResourceLocation({
                         borderRadius: '8px',
                         lineHeight: '1.05em',
                         display: 'inline-block',
+                        position: 'relative',
                       }}
                     >
-                      <Typography as="span" sx={{ fontSize: '1.25em' }}>
+                      <GangInfoDialog
+                        gangId={gangPowerInfo.id}
+                        sx={{
+                          '& .MuiDialog-paper': {
+                            margin: 0,
+                            padding: 0,
+                          },
+                          '& .MuiDialogContent-root': {
+                            padding: { xs: '0.5em', md: '1em' },
+                          },
+                        }}
+                        btn={
+                          <Button
+                            variant="text"
+                            className="equip-btn"
+                            sx={{
+                              position: 'absolute',
+                              backgroundColor: '#701c1c',
+                              borderRadius: '0.85em',
+                              color: 'white',
+                              margin: 0,
+                              right: '0.25em',
+                              top: '0.5em',
+                              fontSize: { xs: '0.5em', sm: '1em' },
+                              minWidth: '0',
+                              width: '1.7em',
+                              height: '1.7em',
+                              padding: 0,
+                              display: 'block',
+                              fontFamily: 'serif',
+                              textTransform: 'none',
+                              fontWeight: 'bold',
+                              '&:hover': {
+                                backgroundColor: '#080830',
+                              },
+                            }}
+                          >
+                            i
+                          </Button>
+                        }
+                      />
+                      <Typography
+                        as="span"
+                        sx={{ fontSize: '1.25em', marginRight: '1.25em' }}
+                      >
                         {names?.[gangPowerInfo.id]}
                       </Typography>
                       <br />
@@ -673,6 +719,76 @@ export default function ResourceLocation({
                     <br />
                     Bandit Won: {bnToCompact(attack?.winnings ?? 0, 18, 4)}
                     <br />
+                    <GangInfoDialog
+                      gangId={attack?.attackerGangId?.toString()}
+                      sx={{
+                        '& .MuiDialog-paper': {
+                          margin: 0,
+                          padding: 0,
+                        },
+                        '& .MuiDialogContent-root': {
+                          padding: { xs: '0.5em', md: '1em' },
+                        },
+                      }}
+                      btn={
+                        <Button
+                          variant="text"
+                          className="equip-btn"
+                          sx={{
+                            backgroundColor: '#701c1c',
+                            borderRadius: '0.85em',
+                            color: 'white',
+                            marginTop: '0.25em',
+                            minWidth: '0',
+                            padding: '0em 1em',
+                            display: 'block',
+                            fontFamily: 'serif',
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            '&:hover': {
+                              backgroundColor: '#080830',
+                            },
+                          }}
+                        >
+                          INFO: ATTACKER
+                        </Button>
+                      }
+                    />
+                    <GangInfoDialog
+                      gangId={attack?.defenderGangId?.toString()}
+                      sx={{
+                        '& .MuiDialog-paper': {
+                          margin: 0,
+                          padding: 0,
+                        },
+                        '& .MuiDialogContent-root': {
+                          padding: { xs: '0.5em', md: '1em' },
+                        },
+                      }}
+                      btn={
+                        <Button
+                          variant="text"
+                          className="equip-btn"
+                          sx={{
+                            backgroundColor: '#701c1c',
+                            borderRadius: '0.85em',
+                            color: 'white',
+                            marginTop: '0.25em',
+                            minWidth: '0',
+                            padding: '0em 1em',
+                            display: 'block',
+                            fontFamily: 'serif',
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            '&:hover': {
+                              backgroundColor: '#080830',
+                            },
+                          }}
+                        >
+                          INFO: DEFENDER
+                        </Button>
+                      }
+                    />
                   </Box>
                 </>
               ))}

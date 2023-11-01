@@ -43,3 +43,26 @@ export default function useGangOwnedERC20(erc20Token, gangId) {
 
     return data || BigNumber.from(0);
 }
+
+export function useGangOwnedMultiERC20(erc20TokenArray, gangId) {
+    const sc = {
+        abi: EntityStoreERC20Abi,
+        address: ADDRESS_ENTITY_STORE_ERC20,
+        functionName: 'getStoredER20WadFor'
+    }
+    const {
+        data,
+        isError,
+        isLoading
+    } = useContractReads({
+        contracts: erc20TokenArray?.map((erc20Token) => ({ args: [ADDRESS_GANGS, gangId, erc20Token], ...sc })),
+        watch: true,
+        enabled: !!erc20TokenArray && erc20TokenArray?.length > 0 && (!!gangId || gangId == 0)
+    });
+
+    const erc20Bals = !data ? [] : erc20TokenArray.reduce((prev, erc20Token, i) =>
+        ({ ...prev, [erc20Token]: !isError && !isLoading ? data[i] : BigNumber.from(0) }),
+        {});
+
+    return erc20Bals;
+}
