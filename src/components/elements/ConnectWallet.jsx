@@ -2,7 +2,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { Box } from '@mui/system';
-import { useWeb3Modal } from '@web3modal/react';
+import { useWeb3Modal, useWeb3ModalState } from '@web3modal/wagmi/react';
 import makeBlockie from 'ethereum-blockies-base64';
 import React from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
@@ -13,6 +13,7 @@ export default function ConnectWallet() {
     open: web3ModalOpen,
     close: web3ModalClose,
   } = useWeb3Modal();
+  const { open, selectedNetworkId } = useWeb3ModalState();
   const { address, isConnecting, isDisconnected } = useAccount();
   const { disconnect } = useDisconnect();
 
@@ -24,7 +25,7 @@ export default function ConnectWallet() {
             <>
               <Tooltip title="Open Wallet Settings">
                 <Button
-                  onClick={web3ModalOpen}
+                  onClick={() => web3ModalOpen({ view: 'Account' })}
                   sx={{
                     textTransform: 'unset',
                     color: 'white',
@@ -59,7 +60,7 @@ export default function ConnectWallet() {
             <>
               <Tooltip title="Login Your Wallet">
                 <Button
-                  onClick={web3ModalOpen}
+                  onClick={() => web3ModalOpen({ view: 'Connect' })}
                   sx={{
                     width: '7em',
                     fontWeight: 'bold',

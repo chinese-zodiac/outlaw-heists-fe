@@ -14,15 +14,23 @@ export function useGangOwnedOutlawIdsMulti(nftIds) {
             abi: EntityStoreERC721Abi,
             address: ADDRESS_ENTITY_STORE_ERC721,
             functionName: 'viewOnly_getAllStoredERC721',
-            args: [ADDRESS_GANGS, id, ADDRESS_OUTLAWS_NFT],
+            args: [ADDRESS_GANGS, id?.toString(), ADDRESS_OUTLAWS_NFT],
         })),
         watch: true,
         enabled: !!nftIds && nftIds.length > 0
     });
 
-    const gangIdToOutlawIds = nftIds?.reduce((prev, id, i) =>
-        ({ ...prev, [id?.toString()]: !isError && !isLoading && !!data[i] ? data[i].map((id) => id?.toString()) : [] }),
+    let allSuccess = true;
+    const gangIdToOutlawIds = nftIds?.reduce((prev, id, i) => {
+        if (!!data && data[i]?.status == 'success') {
+            return ({ ...prev, [id?.toString()]: !isError && !isLoading && !!data[i] ? data[i]?.result.map((id) => id?.toString()) : [] })
+        } else {
+            allSuccess = false;
+            return ({ ...prev })
+        }
+    },
         {});
+    if (!allSuccess) console.log('useGangOwnedOutlawIdsMulti FAIL');
 
     return { gangIdToOutlawIds };
 
@@ -38,7 +46,7 @@ export default function useGangOwnedOutlawIds(nftId) {
         abi: EntityStoreERC721Abi,
         address: ADDRESS_ENTITY_STORE_ERC721,
         functionName: 'viewOnly_getAllStoredERC721',
-        args: [ADDRESS_GANGS, nftId, ADDRESS_OUTLAWS_NFT],
+        args: [ADDRESS_GANGS, nftId?.toString(), ADDRESS_OUTLAWS_NFT],
         watch: true,
         enabled: !!nftId || nftId == 0
     });

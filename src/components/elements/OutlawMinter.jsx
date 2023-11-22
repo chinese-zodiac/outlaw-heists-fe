@@ -45,7 +45,7 @@ export default function OutlawMinter({ nftId }) {
 
   const banditBal =
     !banditBalIsLoading && !banditBalIsError && !!banditBalData?.value
-      ? banditBalData?.value
+      ? BigNumber.from(banditBalData?.value ?? 0)
       : parseEther('0');
 
   const {

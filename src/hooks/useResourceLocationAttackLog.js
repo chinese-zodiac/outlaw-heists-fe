@@ -14,6 +14,7 @@ export default function useResourceLocationAttackLog(resourceLocation, gangId) {
         watch: true,
         enabled: !!resourceLocation
     });
+    
     const attackLog = !!data ? data : []
     return attackLog
 }

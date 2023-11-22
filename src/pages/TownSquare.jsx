@@ -1,6 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import { BigNumber } from 'ethers';
 import { parseEther } from 'ethers/lib/utils.js';
 import { useCallback, useState } from 'react';
 import { useAccount, useBalance } from 'wagmi';
@@ -47,7 +48,7 @@ export default function TownSquare({ accountGangIdArray, activeGangId }) {
 
   const banditBal =
     !banditBalIsLoading && !banditBalIsError && !!banditBalData?.value
-      ? banditBalData?.value
+      ? BigNumber.from(banditBalData?.value ?? 0)
       : parseEther('0');
 
   const [outlawIdsToAdd, setOutlawsIdsToAdd] = useState([]);

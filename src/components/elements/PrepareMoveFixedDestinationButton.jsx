@@ -22,7 +22,7 @@ export default function PrepareMoveFixedDestinationButton({
         address={currentLocation}
         abi={LocTemplateResourceAbi}
         functionName="prepareToMoveGangToFixedDestination"
-        args={[gangId, destinationAddress]}
+        args={[gangId?.toString(), destinationAddress]}
         btn={
           <ButtonPrimary
             disabled={isLocked}

@@ -17,17 +17,24 @@ export function useGangOwnedERC20Multi(erc20Token, gangIds) {
             args: [ADDRESS_GANGS, id, erc20Token],
         })),
         watch: true
-    })
+    });
 
-    const gangBals = gangIds.reduce((prev, id, i) =>
-        ({ ...prev, [id]: !isError && !isLoading ? data[i] : BigNumber.from(0) }),
+    let allSuccess = true;
+    const gangBals = gangIds.reduce((prev, id, i) => {
+        if (!!data && data[i]?.status == 'success') {
+            return ({ ...prev, [id]: !isError && !isLoading ? BigNumber.from(data[i]?.result) : BigNumber.from(0) })
+        } else {
+            allSuccess = false;
+            return ({ ...prev })
+        }
+    },
         {});
+    if (!allSuccess) console.log('useGangOwnedERC20Multi FAIL');
 
     return gangBals;
 }
 
 export default function useGangOwnedERC20(erc20Token, gangId) {
-
     const {
         data,
         isError,
@@ -36,12 +43,11 @@ export default function useGangOwnedERC20(erc20Token, gangId) {
         abi: EntityStoreERC20Abi,
         address: ADDRESS_ENTITY_STORE_ERC20,
         functionName: 'getStoredER20WadFor',
-        args: [ADDRESS_GANGS, gangId, erc20Token],
+        args: [ADDRESS_GANGS, gangId?.toString(), erc20Token],
         watch: true,
         enabled: !!gangId || gangId == 0
     });
-
-    return data || BigNumber.from(0);
+    return BigNumber.from(data ?? 0) || BigNumber.from(0);
 }
 
 export function useGangOwnedMultiERC20(erc20TokenArray, gangId) {
@@ -55,14 +61,22 @@ export function useGangOwnedMultiERC20(erc20TokenArray, gangId) {
         isError,
         isLoading
     } = useContractReads({
-        contracts: erc20TokenArray?.map((erc20Token) => ({ args: [ADDRESS_GANGS, gangId, erc20Token], ...sc })),
+        contracts: erc20TokenArray?.map((erc20Token) => ({ args: [ADDRESS_GANGS, gangId?.toString(), erc20Token], ...sc })),
         watch: true,
         enabled: !!erc20TokenArray && erc20TokenArray?.length > 0 && (!!gangId || gangId == 0)
     });
 
-    const erc20Bals = !data ? [] : erc20TokenArray.reduce((prev, erc20Token, i) =>
-        ({ ...prev, [erc20Token]: !isError && !isLoading ? data[i] : BigNumber.from(0) }),
+    let allSuccess = true;
+    const erc20Bals = !data ? [] : erc20TokenArray.reduce((prev, erc20Token, i) => {
+        if (!!data && data[i]?.status == 'success') {
+            return ({ ...prev, [erc20Token]: !isError && !isLoading ? BigNumber.from(data[i]?.result) : BigNumber.from(0) })
+        } else {
+            allSuccess = false;
+            return ({ ...prev })
+        }
+    },
         {});
+    if (!allSuccess) console.log('useGangOwnedMultiERC20 FAIL');
 
     return erc20Bals;
 }

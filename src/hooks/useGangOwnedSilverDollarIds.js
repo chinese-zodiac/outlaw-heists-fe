@@ -14,15 +14,23 @@ export function useGangOwnedSilverDollarIdsMulti(nftIds) {
             abi: EntityStoreERC721Abi,
             address: ADDRESS_ENTITY_STORE_ERC721,
             functionName: 'viewOnly_getAllStoredERC721',
-            args: [ADDRESS_GANGS, id, ADDRESS_USTSD_NFT],
+            args: [ADDRESS_GANGS, id?.toString(), ADDRESS_USTSD_NFT],
         })),
         watch: true,
         enabled: !!nftIds && nftIds.length > 0
     });
 
-    const gangIdToUstsdIds = nftIds?.reduce((prev, id, i) =>
-        ({ ...prev, [id?.toString()]: !isError && !isLoading && !!data[i] ? data[i].map((id) => id?.toString()) : [] }),
+    let allSuccess = true;
+    const gangIdToUstsdIds = nftIds?.reduce((prev, id, i) => {
+        if (!!data && data[i]?.status == 'success') {
+            return ({ ...prev, [id?.toString()]: !isError && !isLoading && !!data[i]?.result ? data[i]?.result.map((id) => id?.toString()) : [] })
+        } else {
+            allSuccess = false;
+            return ({ ...prev })
+        }
+    },
         {});
+    if (!allSuccess) console.log('useGangOwnedSilverDollarIdsMulti FAIL');
 
     return { gangIdToUstsdIds };
 
@@ -38,7 +46,7 @@ export default function useGangOwnedSilverDollarIds(nftId) {
         abi: EntityStoreERC721Abi,
         address: ADDRESS_ENTITY_STORE_ERC721,
         functionName: 'viewOnly_getAllStoredERC721',
-        args: [ADDRESS_GANGS, nftId, ADDRESS_USTSD_NFT],
+        args: [ADDRESS_GANGS, nftId?.toString(), ADDRESS_USTSD_NFT],
         watch: true,
         enabled: !!nftId || nftId == 0
     });

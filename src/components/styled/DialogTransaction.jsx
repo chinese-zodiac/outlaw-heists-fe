@@ -32,10 +32,8 @@ export default function DialogTransaction({
     address: debouncedAddress,
     functionName: debouncedFunctionName,
     args: debouncedArgs,
-    overrides: {
-      value: debouncedValue,
-      gasLimit: debouncedGas,
-    },
+    gas: debouncedGas,
+    value: debouncedValue,
   });
   const { data, error, isError, isLoading, isSuccess, write } =
     useContractWrite({ ...config, onSuccess });

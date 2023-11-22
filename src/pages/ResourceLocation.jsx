@@ -265,7 +265,7 @@ export default function ResourceLocation({
                   address={resourceLocationAddress}
                   abi={LocTemplateResourceAbi}
                   functionName="claimPendingResources"
-                  args={[activeGangId]}
+                  args={[activeGangId?.toString()]}
                   title={`Claim ${LOCATION_RESOURCES[resourceLocationAddress].name}`}
                   btn={
                     <Button
@@ -452,9 +452,12 @@ export default function ResourceLocation({
                             address={resourceLocationAddress}
                             abi={LocTemplateResourceAbi}
                             functionName="startAttack"
-                            args={[activeGangId, gangPowerInfo.id]}
+                            args={[
+                              activeGangId?.toString(),
+                              gangPowerInfo.id?.toString(),
+                            ]}
                             title={`Attack ${names?.[gangPowerInfo.id]}`}
-                            value={parseEther('0.0025')}
+                            value={parseEther('0.0025')?.toString()}
                             gas={400000}
                             btn={
                               <Button
@@ -504,7 +507,7 @@ export default function ResourceLocation({
                             address={resourceLocationAddress}
                             abi={LocTemplateResourceAbi}
                             functionName="resolveAttack"
-                            args={[activeGangId]}
+                            args={[activeGangId?.toString()]}
                             title={`Resolve Attack`}
                             btn={
                               <Button

@@ -38,7 +38,17 @@ export default function useAccountNfts(nftAddress) {
         watch: true,
         enabled: !!address && nftCount > 0
     });
-    const accountNftIdArray = accountNftIdArrayData ?? [];
+
+    let allSuccess = true;
+    const accountNftIdArray = accountNftIdArrayData?.map((nftResult) => {
+        if (nftResult?.status == 'success') {
+            return nftResult?.result;
+        } else {
+            allSuccess = false;
+            return undefined;
+        }
+    }) ?? [];
+    if (!allSuccess) console.log('accountNftIdArray FAIL');
 
     return { accountNftIdArray, accountNftCount: Number(nftCount?.toString()) }
 }

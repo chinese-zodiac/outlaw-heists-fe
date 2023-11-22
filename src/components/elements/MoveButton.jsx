@@ -26,7 +26,7 @@ export default function MoveButton({
         address={ADDRESS_LOCATION_CONTROLLER}
         abi={ILocationControllerAbi}
         functionName="move"
-        args={[ADDRESS_GANGS, gangId, destinationAddress]}
+        args={[ADDRESS_GANGS, gangId?.toString(), destinationAddress]}
         gas={gas}
         btn={
           <ButtonPrimary

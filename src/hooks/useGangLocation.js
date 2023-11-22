@@ -13,22 +13,31 @@ export function useGangLocationMulti(gangIds) {
             abi: ILocationControllerAbi,
             address: ADDRESS_LOCATION_CONTROLLER,
             functionName: 'getEntityLocation',
-            args: [ADDRESS_GANGS, id],
+            args: [ADDRESS_GANGS, id?.toString()],
         })),
         watch: true
     });
 
-    const locations = gangIds.reduce((prev, id, i) =>
-    ({
-        ...prev, [id]: !isError && !isLoading ? ({
-            address: data[i],
-            name: LOCATION_NAMES[data[i]]
-        }) : ({
-            address: ADDRESS_ZERO,
-            name: ""
-        })
-    }),
-        {});
+    let allSuccess = true;
+    const locations = gangIds.reduce((prev, id, i) => {
+        if (!!data && data[i]?.status == 'success') {
+            return ({
+                ...prev, [id]: !isError && !isLoading ? ({
+                    address: data[i]?.result,
+                    name: LOCATION_NAMES[data[i]?.result]
+                }) : ({
+                    address: ADDRESS_ZERO,
+                    name: ""
+                })
+            });
+
+        } else {
+            allSuccess = false;
+            return ({ ...prev })
+        }
+    },
+        {})
+    if (!allSuccess) console.log('useGangLocationMulti FAIL');
 
     return locations;
 }
@@ -42,7 +51,7 @@ export default function useGangLocation(gangId) {
         abi: ILocationControllerAbi,
         address: ADDRESS_LOCATION_CONTROLLER,
         functionName: 'getEntityLocation',
-        args: [ADDRESS_GANGS, gangId],
+        args: [ADDRESS_GANGS, gangId?.toString()],
         watch: true,
         enabled: !!gangId || gangId == 0
     });

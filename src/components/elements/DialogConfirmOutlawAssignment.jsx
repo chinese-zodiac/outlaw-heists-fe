@@ -56,8 +56,12 @@ export default function DialogConfirmOutlawAssignment({
         }
         args={
           isNewGang
-            ? [outlawIdsToAdd]
-            : [gangId, outlawIdsToAdd, outlawIdsToRemove]
+            ? [outlawIdsToAdd?.map((id) => id?.toString())]
+            : [
+                gangId?.toString(),
+                outlawIdsToAdd?.map((id) => id?.toString()),
+                outlawIdsToRemove?.map((id) => id?.toString()),
+              ]
         }
         title="GANG ASSIGNMENTS"
         onSuccess={deselectOutlawsAll}

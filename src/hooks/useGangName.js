@@ -5,9 +5,9 @@ import { WordList3 } from "../constants/WordList3";
 import { ADDRESS_GANGS } from "../constants/addresses";
 
 function nameDataToName(getNameData) {
-    return WordList1And2[getNameData?.word1_?.toString()] + " " +
-        WordList1And2[getNameData?.word2_?.toString()] + " " +
-        WordList3[getNameData?.word3_?.toString()]
+    return WordList1And2[getNameData?.[0]?.toString()] + " " +
+        WordList1And2[getNameData?.[1]?.toString()] + " " +
+        WordList3[getNameData?.[2]?.toString()]
 }
 
 export function useGangNameMulti(gangIds) {
@@ -20,14 +20,21 @@ export function useGangNameMulti(gangIds) {
             abi: GangsAbi,
             address: ADDRESS_GANGS,
             functionName: 'getName',
-            args: [id],
+            args: [id?.toString()],
         })),
         watch: true
-    })
-
-    const names = gangIds.reduce((prev, id, i) =>
-        ({ ...prev, [id]: !isError && !isLoading ? nameDataToName(data[i]) : "" }),
+    });
+    let allSuccess = true;
+    const names = gangIds.reduce((prev, id, i) => {
+        if (!!data && data[i]?.status == 'success') {
+            return ({ ...prev, [id]: !isError && !isLoading ? nameDataToName(data[i]?.result) : "" })
+        } else {
+            allSuccess = false;
+            return ({ ...prev })
+        }
+    },
         {});
+    if (!allSuccess) console.log('useGangNameMulti FAIL');
 
     return names;
 }
@@ -41,7 +48,7 @@ export default function useGangName(gangId) {
         abi: GangsAbi,
         address: ADDRESS_GANGS,
         functionName: 'getName',
-        args: [gangId],
+        args: [gangId?.toString()],
         watch: true,
         enabled: !!gangId || gangId == 0
     });

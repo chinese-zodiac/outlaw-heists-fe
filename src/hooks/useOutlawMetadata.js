@@ -5,6 +5,7 @@ export function useOutlawMetadataMulti(nftIds) {
     nftIds?.forEach((nftId) => fetchOutlawMetadata(nftId));
 
     const outlawMetadata = useStore((state) => state.outlawMetadata.filter((val) => nftIds?.includes(val?.nftId)));
+
     return {
         metadataMulti: outlawMetadata.reduce((prev, metadata) => ({ ...prev, [metadata?.nftId]: metadata }), {})
     }

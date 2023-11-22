@@ -1,11 +1,6 @@
-import {
-  EthereumClient,
-  w3mConnectors,
-  w3mProvider,
-} from '@web3modal/ethereum';
-import { Web3Modal } from '@web3modal/react';
-import { WagmiConfig, configureChains, createClient } from 'wagmi';
-import { bsc } from 'wagmi/chains';
+import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
+import { bsc } from 'viem/chains';
+import { WagmiConfig } from 'wagmi';
 import BaseThemeProvider from './providers/BaseThemeProvider';
 import { DarkModeProvider } from './providers/DarkModeProvider';
 
@@ -15,30 +10,23 @@ if (!import.meta.env.VITE_WALLETCONNECT_CLOUD_ID) {
 }
 const projectId = import.meta.env.VITE_WALLETCONNECT_CLOUD_ID;
 const chains = [bsc];
-const { provider } = configureChains(chains, [w3mProvider({ projectId })]);
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors: w3mConnectors({
-    version: 2,
-    appName: 'Bandit Heists',
-    chains,
-    projectId,
-  }),
-  provider,
-});
+const metadata = {
+  name: 'Bandit Heist',
+  description: 'Web3Modal Example',
+  url: 'https://banditheist.prpg.quest',
+  icons: ['https://banditheist.prpg.quest/images/logo.png'],
+};
 
-const ethereumClient = new EthereumClient(wagmiClient, chains);
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+
+// 3. Create modal
+createWeb3Modal({ wagmiConfig, projectId, chains });
 
 function App({ children }) {
   return (
     <DarkModeProvider>
       <BaseThemeProvider>
-        <WagmiConfig client={wagmiClient}>{children}</WagmiConfig>
-        <Web3Modal
-          projectId={projectId}
-          ethereumClient={ethereumClient}
-          disableScrollLock
-        />
+        <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
       </BaseThemeProvider>
     </DarkModeProvider>
   );

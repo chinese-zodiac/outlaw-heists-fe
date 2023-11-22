@@ -69,7 +69,7 @@ export default function DialogEquipErc20({
 
   const tokenBal =
     !tokenBalIsLoading && !tokenBalIsError && !!tokenBalData?.value
-      ? tokenBalData?.value
+      ? BigNumber.from(tokenBalData?.value ?? 0)
       : parseEther('0');
 
   const handleClickOpen = () => {
@@ -157,7 +157,7 @@ export default function DialogEquipErc20({
             <EtherTextField
               decimals={18}
               onChange={setInputWad}
-              value={inputWad}
+              value={inputWad?.toString()}
               placeholder="0.0"
               autofocus
               fullWidth
@@ -344,7 +344,10 @@ export default function DialogEquipErc20({
               address={tokenAddress}
               abi={IERC20Abi}
               functionName="approve"
-              args={[LOCATION_TOWN_SQUARE, ethers.constants.MaxUint256]}
+              args={[
+                LOCATION_TOWN_SQUARE,
+                ethers.constants.MaxUint256?.toString(),
+              ]}
             >
               <Typography
                 sx={{
@@ -402,7 +405,7 @@ export default function DialogEquipErc20({
               address={LOCATION_TOWN_SQUARE}
               abi={LocTownSquareAbi}
               functionName={isEquip ? 'depositBandits' : 'withdrawBandits'}
-              args={[gangId, inputWad]}
+              args={[gangId?.toString(), inputWad?.toString()]}
             >
               <Typography
                 sx={{

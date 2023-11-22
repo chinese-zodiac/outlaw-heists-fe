@@ -30,7 +30,11 @@ export default function DialogConfirmSilverDollarsAssignment({
         address={LOCATION_SILVER_STORE}
         abi={LocSilverStoreAbi}
         functionName={'depositAndWithdrawUstsd'}
-        args={[gangId, ustsdIdsToAdd, ustsdIdsToRemove]}
+        args={[
+          gangId?.toString(),
+          ustsdIdsToAdd?.map((id) => id?.toString()),
+          ustsdIdsToRemove?.map((id) => id?.toString()),
+        ]}
         title="SILVER DOLLAR ASSIGNMENTS"
         onSuccess={deselectUstsdAll}
         btn={

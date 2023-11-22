@@ -1,3 +1,4 @@
+import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 import ViewGangsPowerAbi from '../abi/ViewGangsPower.json';
 import { ADDRESS_VIEW_GANGS_POWER } from "../constants/addresses";
@@ -17,15 +18,13 @@ export default function useViewGangsPower(resourceLocation) {
         enabled: !!resourceLocation
     });
 
-
     const gangsPower = [];
-
-    if (!isError && !isLoading && !!data && data.gangIds.length > 0) {
-        for (let i = 0; i < data.gangIds.length; i++) {
+    if (!isError && !isLoading && !!data && !!data?.[0] && data?.[0]?.length > 0) {
+        for (let i = 0; i < data[0].length; i++) {
             gangsPower.push({
-                id: data?.gangIds[i],
-                bandits: data?.gangBandits[i],
-                power: data?.gangPowers[i],
+                id: BigNumber.from(data[0][i]),
+                bandits: BigNumber.from(data[1][i]),
+                power: BigNumber.from(data[2][i]),
             })
         }
     }
