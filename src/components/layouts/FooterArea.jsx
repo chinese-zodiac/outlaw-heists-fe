@@ -115,7 +115,7 @@ export default function FooterArea({ sx }) {
               <p css={{ fontSize: 14, fontWeight: 400 }}>
                 © 2023 CZodiac. All rights reserved
                 <br />
-                v0.0.2
+                v0.0.3
               </p>
             </Grid2>
           </Grid2>
