@@ -1,6 +1,13 @@
 import { OUTLAW_PERSONALITIES_ARR } from "../constants/textLoopups";
 
 export default function boostLookup(outlawsPersonalityArray) {
+    if (!outlawsPersonalityArray || outlawsPersonalityArray?.length == 0) {
+        return {
+            boostType: "NONE",
+            boostBp: 0
+        }
+    }
+    console.log(outlawsPersonalityArray)
     if (OUTLAW_PERSONALITIES_ARR.every(id => outlawsPersonalityArray.includes(id))) {
         return {
             boostType: "STRAIGHT",

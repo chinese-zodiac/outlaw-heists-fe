@@ -144,7 +144,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
               justifyContent="center"
               spacing={{ xs: 1, md: 2 }}
             >
-              {gangIdToOutlawIds[gangId].map((outlawId, j) => (
+              {gangIdToOutlawIds?.[gangId]?.map((outlawId, j) => (
                 <Box
                   key={i + '-' + j}
                   sx={{ width: '20%', position: 'relative' }}
@@ -198,18 +198,19 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                   />
                 </Box>
               ))}
-              {[...new Array(5 - gangIdToOutlawIds[gangId].length)].map(
-                (_, j) => (
-                  <Box
-                    key={i + '-' + j}
-                    sx={{
-                      width: '20%',
-                      backgroundColor: '#582C2C',
-                      maxWidth: '229px',
-                    }}
-                  />
-                )
-              )}
+              {!!gangIdToOutlawIds?.[gangId]?.length &&
+                [...new Array(5 - gangIdToOutlawIds[gangId].length)].map(
+                  (_, j) => (
+                    <Box
+                      key={i + '-' + j}
+                      sx={{
+                        width: '20%',
+                        backgroundColor: '#582C2C',
+                        maxWidth: '229px',
+                      }}
+                    />
+                  )
+                )}
             </Stack>
             <Stack
               direction="row"
@@ -225,7 +226,7 @@ export default function Loadout({ accountGangIdArray, deselectOutlawsAll }) {
                   lineHeight: '1em',
                 }}
               >
-                {locations[gangId].name}
+                {locations[gangId]?.name}
               </Typography>
               <Typography
                 sx={{

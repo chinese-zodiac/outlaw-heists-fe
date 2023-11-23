@@ -2,6 +2,7 @@ import { useTheme } from '@emotion/react';
 import { Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { parseEther } from 'ethers/lib/utils.js';
+import React from 'react';
 import { useAccount, useContractRead } from 'wagmi';
 import LocTemplateResourceAbi from '../abi/LocTemplateResource.json';
 import GangBar from '../components/elements/GangBar';
@@ -354,7 +355,7 @@ export default function ResourceLocation({
                 <>
                   {gangsPower.map((gangPowerInfo) => (
                     <Box
-                      key={gangPowerInfo.id}
+                      key={gangPowerInfo.id.toString()}
                       sx={{
                         background: 'white',
                         margin: '0.25em',
@@ -369,7 +370,7 @@ export default function ResourceLocation({
                       }}
                     >
                       <GangInfoDialog
-                        gangId={gangPowerInfo.id}
+                        gangId={gangPowerInfo?.id?.toString()}
                         sx={{
                           '& .MuiDialog-paper': {
                             margin: 0,
@@ -625,6 +626,7 @@ export default function ResourceLocation({
                 {LOCATION_DESTINATIONS[resourceLocationAddress]?.map(
                   (destination) => (
                     <PrepareMoveFixedDestinationButton
+                      key={destination}
                       sx={{ marginBottom: '0.4em' }}
                       currentLocation={resourceLocationAddress}
                       destinationAddress={destination}
@@ -692,7 +694,9 @@ export default function ResourceLocation({
           >
             {!!attackLog &&
               attackLog?.map((attack) => (
-                <>
+                <React.Fragment
+                  key={`${attack?.attackerGangId?.toString()}-${attack?.defenderGangId?.toString()}-${attack?.time?.toString()}`}
+                >
                   <Box
                     sx={{
                       backgroundColor: 'white',
@@ -793,7 +797,7 @@ export default function ResourceLocation({
                       }
                     />
                   </Box>
-                </>
+                </React.Fragment>
               ))}
           </StatsAccordion>
           <StatsAccordion

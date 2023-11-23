@@ -1,5 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
+import React from 'react';
 import { ADDRESS_BANDIT, ADDRESS_GANGS } from '../../constants/addresses';
 import { LOCATION_RESOURCES } from '../../constants/locationResources';
 import useGangLocation from '../../hooks/useGangLocation';
@@ -171,7 +172,7 @@ export default function GangInfoDialog({ gangId, btn, sx }) {
       </Typography>
       <Box>
         {Object.values(LOCATION_RESOURCES).map((resourceMetadata) => (
-          <>
+          <React.Fragment key={resourceMetadata.address}>
             <Box
               sx={{
                 whiteSpace: 'nowrap',
@@ -198,7 +199,7 @@ export default function GangInfoDialog({ gangId, btn, sx }) {
                 {bnToCompact(erc20Bals?.[resourceMetadata.address], 18, 4)}
               </Typography>
             </Box>
-          </>
+          </React.Fragment>
         ))}
       </Box>
     </DialogInfo>
