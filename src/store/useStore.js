@@ -43,6 +43,13 @@ const fetchGenericMetadata = async (_nftSc, _nftId) => {
         return;
     }
     let metadata = await getIpfsJson(getIpfsUrl('ipfs://' + ipfsCid));
+    
+    //Handle failed IPFS fetch
+    if (!metadata) {
+        metadataFetchStatusAll[nftSc][nftId] = STATUS.FAILURE;
+        return;
+    }
+    
     metadata.ipfsCid = ipfsCid;
     metadata.nftId = nftId;
     metadata.nftSc = nftSc;
